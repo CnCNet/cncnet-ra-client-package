@@ -1,0 +1,105 @@
+; Made for Inno Setup 6.2.2
+
+; Allows us to add dependency installers
+; https://github.com/DomGries/InnoDependencyInstaller
+#define public Dependency_NoExampleSetup
+#include "libs/InnoDependencyInstaller/CodeDependencies.iss"
+
+[Setup]
+AppId={{ '{{73F3D3B5-4AC4-4D01-A65C-0A4B4D8723B5}' }}
+AppName={{ app.name }}
+AppVersion={{ app.version }}
+AppVerName={{ app.versionName }}
+AppPublisher={{ app.publisher }}
+VersionInfoVersion=0.0.0.0
+VersionInfoTextVersion={{ app.version }}
+VersionInfoProductName={{ app.name }}
+VersionInfoDescription={{ app.name }}
+AppPublisherURL={{ app.publisherUrl }}
+AppSupportURL={{ app.supportUrl }}
+AppUpdatesURL={{ app.updatesUrl }}
+DirExistsWarning=no
+DefaultDirName={pf}\CnCNet\Red Alert
+DisableProgramGroupPage=yes
+DisableReadyPage=yes
+DisableWelcomePage=yes
+DisableFinishedPage=yes
+AllowNoIcons=yes
+OutputBaseFilename={{ outputBaseFilename }}
+Compression=lzma2/max
+SolidCompression=yes
+UsePreviouslanguage=no
+CreateUninstallRegKey=yes
+UsePreviousAppDir=yes
+SourceDir={{ sourceDir }}
+OutputDir={{ outputDir }}
+SetupIconFile={{ setupIconFile }}
+AppendDefaultDirName=no
+ShowLanguageDialog=no
+LicenseFile={{ licenseFile }}
+ArchitecturesInstallIn64BitMode=x64compatible
+UsedUserAreasWarning=no
+
+[Languages]
+Name: "english"; MessagesFile: "compiler:Default.isl"
+
+; files to delete prior to installation (from preupdateexec/updateexec)
+[InstallDelete]
+{% for item in installDeleteFiles %}
+Type: filesandordirs; Name: "{app}\{{ item }}"
+{%  endfor %}
+
+[Files]
+Source: *; DestDir: "{app}"; Excludes: "{{ excludedInstallerFiles }}"; Flags: recursesubdirs ignoreversion overwritereadonly sortfilesbyextension
+Source: version; DestDir: "{app}"; Flags: ignoreversion
+Source: RedAlert.exe; DestDir: "{app}"; Flags: ignoreversion
+
+[Icons]
+Name: "{commondesktop}\CnCNet Red Alert"; Filename: "{app}\RedAlert.exe"; WorkingDir: "{app}"
+Name: "{app}\Uninstall CnCNet Red Alert"; Filename: "{uninstallexe}"
+
+[Run]
+Filename: "{app}\RedAlert.exe"; WorkingDir: "{app}"; Description: "Launch CnCNet Red Alert"; Flags: nowait postinstall runascurrentuser skipifsilent
+
+[UninstallDelete]
+Type: files; Name: "{app}\version"
+Type: files; Name: "{app}\version_u"
+Type: files; Name: "{app}\stats.dmp"
+Type: files; Name: "{app}\spawnmap.ini"
+Type: files; Name: "{app}\spawn.ini"
+Type: filesandordirs; Name: "{app}\INI"
+Type: filesandordirs; Name: "{app}\Maps"
+Type: filesandordirs; Name: "{app}\Resources"
+Type: filesandordirs; Name: "{app}\Client"
+Type: filesandordirs; Name: "{app}\Qt"
+
+[Code]
+procedure InitializeDependencies();
+begin
+  Dependency_AddDotNet48;
+
+  Dependency_ForceX86 := True;
+  Dependency_AddVC2005;
+  Dependency_AddVC2008;
+  Dependency_AddVC2010;
+  Dependency_AddVC2012;
+  Dependency_AddVC2013;
+  Dependency_AddVC2015To2022;
+  Dependency_ForceX86 := False;
+
+  if IsWin64 then
+  begin
+    Dependency_AddVC2005;
+    Dependency_AddVC2008;
+    Dependency_AddVC2010;
+    Dependency_AddVC2012;
+    Dependency_AddVC2013;
+    Dependency_AddVC2015To2022;
+  end;
+end;
+
+function InitializeSetup(): Boolean;
+begin
+  InitializeDependencies;
+  Result := True;
+end;

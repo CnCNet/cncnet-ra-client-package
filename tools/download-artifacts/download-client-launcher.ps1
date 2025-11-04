@@ -12,6 +12,7 @@ $TempPath = "$PSScriptRoot\temp-launcher"
 New-Item $TempPath -Force -ItemType "directory"
 $ReleaseTagName = $ArtifactsConfig.launcherReleaseTagName
 $LauncherName = $ArtifactsConfig.launcherName
+$GithubApiVersion = $ArtifactsConfig.githubApiVersion
 
 $ReleaseByTagNameUrl = "https://api.github.com/repos/cncnet/dta-mg-client-launcher/releases/tags/$( $ArtifactsConfig.launcherReleaseTagName )"
 
@@ -54,7 +55,7 @@ Write-Output "Extracting client launcher to path: $ExtractionPath"
 Expand-Archive -Path $DownloadedFilename -DestinationPath $ExtractionPath
 
 # Move launcher to correct location with correct name
-$LauncherCopyPath = "${$Config.PackagePath}\$LauncherName"
+$LauncherCopyPath = Join-Path $Config.PackagePath $LauncherName
 Write-Output "Copying launcher to: $LauncherCopyPath"
 Rename-Item "$ExtractionPath\CnCNet.LauncherStub.exe" $LauncherName
 Move-Item "$ExtractionPath\$LauncherName" -Destination "$LauncherCopyPath" -Force

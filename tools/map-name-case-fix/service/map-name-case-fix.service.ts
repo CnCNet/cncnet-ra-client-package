@@ -52,15 +52,17 @@ export class MapNameCaseFixService {
     }
 
     private async readDirAsync(filePath: string): Promise<string[]> {
-        const files = [];
-        readdirSync(filePath, {withFileTypes: true}).map(async (f) => {
-            if (f.isFile()) {
-                files.push(path.join(filePath, f.name));
-                return;
-            }
+        const files: string[] = [];
+        const entries = readdirSync(filePath, { withFileTypes: true });
 
-            files.push(...(await this.readDirAsync(path.join(filePath, f.name))));
-        })
+        for (const entry of entries) {
+            const entryPath = path.join(filePath, entry.name);
+            if (entry.isFile()) {
+                files.push(entryPath);
+            } else if (entry.isDirectory()) {
+                files.push(...(await this.readDirAsync(entryPath)));
+            }
+        }
 
         return files;
     }

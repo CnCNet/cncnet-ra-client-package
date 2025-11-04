@@ -2,6 +2,9 @@ import { readdir, stat } from 'fs';
 import { constants } from '../constants';
 import * as util from 'util'
 import { IniFile } from '../class';
+import { extname, join } from 'path';
+
+const MAP_FILE_EXTENSIONS = ['.map'];
 
 export class MapLoaderService {
 
@@ -17,7 +20,7 @@ export class MapLoaderService {
         });
 
         for (const fileOrDir of dirFiles) {
-            const fileOrDirPath = `${dir}\\${fileOrDir}`;
+            const fileOrDirPath = join(dir, fileOrDir);
             const stats = await util.promisify(stat)(fileOrDirPath);
             if (stats.isDirectory()) {
                 maps.push(...(await this.getMapFilesFromDirAsync(fileOrDirPath)));
@@ -45,6 +48,7 @@ export class MapLoaderService {
     }
 
     private isMapFile(file: string): boolean {
-        return file.toLowerCase().endsWith('.map');
+        const fileExtension = extname(file).toLowerCase();
+        return MAP_FILE_EXTENSIONS.includes(fileExtension);
     }
 }

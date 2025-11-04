@@ -9,16 +9,41 @@ export class VersionWriterService {
     }
 
     private async run(): Promise<void> {
-        const versionWriter = spawn(constants.paths.versionWriterBinary, ['/S', constants.paths.packagePath], {
-            cwd: __dirname,
+        await new Promise<void>((resolve, reject) => {
+            const versionWriter = spawn(constants.paths.versionWriterBinary, ['/S', constants.paths.packagePath], {
+                cwd: __dirname,
+            });
+
+            let stderrBuffer = '';
+
+            versionWriter.stdout.on('data', data => {
+                console.log(data.toString());
+            });
+
+            versionWriter.stderr.on('data', data => {
+                stderrBuffer += data.toString();
+            });
+
+            versionWriter.on('error', reject);
+
+            versionWriter.on('close', async (code) => {
+                try {
+                    if (stderrBuffer) {
+                        console.error(stderrBuffer.trim());
+                    }
+
+                    if (code !== 0) {
+                        reject(new Error(`VersionWriter exited with code ${code}`));
+                        return;
+                    }
+
+                    await this.deleteVersionWriterCopiedFiles();
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
+            });
         });
-        versionWriter.stdout.on('data', data => {
-            console.log(data.toString());
-        });
-        versionWriter.stderr.on('data', data => {
-            throw data.toString();
-        });
-        versionWriter.stdout.on('end', await this.deleteVersionWriterCopiedFiles);
     }
 
     private async deleteVersionWriterCopiedFiles(): Promise<void> {

@@ -1,0 +1,34 @@
+﻿tag-prefix: 'ra-'
+mode: ContinuousDeployment
+increment: Patch
+
+branches:
+  master:
+    regex: ^master$
+    source-branches: [ 'master' ]
+    tag: ''
+    increment: Patch
+
+  pre-release:
+    regex: ^pre-release$
+    source-branches: [ 'master' ]
+    tag: prerelease
+    increment: Patch
+
+  # Any new features that should be auto versioned should be in a branch under "feature/"
+  # Example: feature/port-to-xna
+  # Features will inherit the increment behaviour from their source branch and receive a branch-based pre-release label.
+  feature:
+    regex: ^feature?[/-]
+    source-branches: [ 'master', 'pre-release' ]
+    tag: useBranchName
+    increment: Inherit
+
+  # Any patches should be put under the "hotfix/" branch prefix.
+  # Example: hotfix/fix-crash
+  # Hotfixes will increment the version by Patch and receive a branch-based pre-release label.
+  hotfix:
+    regex: ^hotfix?[/-]
+    source-branches: [ 'master' ]
+    tag: useBranchName
+    increment: Patch
