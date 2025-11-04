@@ -1,4 +1,4 @@
-import { spawn } from 'child_process';
+import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
 import { constants } from '../constants';
 import * as Twig from 'twig';
 import { access, readFile, writeFile } from 'fs';
@@ -124,12 +124,33 @@ export class BuildInstallerService {
 
     private async buildInstaller(): Promise<void> {
         await this.ensureInstallerBinaryExists();
-        console.log(`Building installer from script '${constants.paths.installerScript}'`);
+
+        const installerBinary = constants.paths.installerBinary;
+        const installerScript = constants.paths.installerScript;
+        const installerCwd = resolve(installerBinary, '..');
+
+        console.log(`Building installer from script '${installerScript}'`);
+        console.log(`Using Inno Setup binary '${installerBinary}'`);
 
         await new Promise<void>((resolvePromise, rejectPromise) => {
-            const inno = spawn(constants.paths.installerBinary, [constants.paths.installerScript], {
-                cwd: __dirname,
-            });
+            const startProcess = (): ChildProcessWithoutNullStreams => {
+                return spawn(installerBinary, [installerScript], {
+                    cwd: installerCwd,
+                });
+            };
+
+            let inno: ChildProcessWithoutNullStreams;
+
+            try {
+                inno = startProcess();
+            } catch (error) {
+                const err = error as NodeJS.ErrnoException;
+                console.warn(`Direct spawn of Inno Setup failed (${err.code ?? err.message}). Attempting cmd.exe fallback.`);
+                inno = spawn('cmd.exe', ['/d', '/s', '/c', `"${installerBinary}" "${installerScript}"`], {
+                    cwd: installerCwd,
+                    windowsVerbatimArguments: true,
+                });
+            }
 
             let stderrBuffer = '';
 
@@ -143,7 +164,11 @@ export class BuildInstallerService {
                 console.error(chunk);
             });
 
-            inno.on('error', error => rejectPromise(error));
+            inno.on('error', error => {
+                const err = error as NodeJS.ErrnoException;
+                const details = err.code ? `${err.code}: ${err.message}` : err.message;
+                rejectPromise(new Error(`Failed to execute Inno Setup CLI (${details}).`));
+            });
 
             inno.on('close', code => {
                 if (code !== 0) {
@@ -162,5 +187,6 @@ export class BuildInstallerService {
         } catch (error) {
             throw new Error(`Inno Setup binary not found at '${constants.paths.installerBinary}'. Install Inno Setup 6 or update constants.paths.installerBinary to point at ISCC.exe.`);
         }
+        console.log(`Verified Inno Setup binary exists at '${constants.paths.installerBinary}'.`);
     }
 }
