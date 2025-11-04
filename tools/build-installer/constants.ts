@@ -5,8 +5,7 @@ const packagePath = resolve(repoPath, 'package');
 const versionFilePath = resolve(packagePath, 'version');
 const innoPath = resolve(__dirname, 'inno');
 const innoResourcesPath = resolve(innoPath, 'Resources');
-// Use a known-good icon shipped with Inno Setup to avoid malformed ICO issues
-const setupIconPath = resolve(innoPath, 'bin/SetupClassicIcon.ico');
+const setupIconPath = resolve(innoResourcesPath, 'cncnet5.ico');
 const licenseFilePath = resolve(innoResourcesPath, 'License-RedAlert.txt');
 const installerBinary = resolve(innoPath, 'bin/ISCC.exe');
 const installerTemplate = resolve(innoPath, 'installer.twig');
