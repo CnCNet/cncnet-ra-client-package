@@ -54,7 +54,8 @@ export class BuildInstallerService {
                 updatesUrl: constants.app.updatesUrl,
             },
             sourceDir: toRel(constants.paths.packagePath),
-            outputDir: toRel(constants.paths.repoPath),
+            // Use absolute path to ensure CI finds the installer at repo root regardless of ISCC working directory
+            outputDir: constants.paths.repoPath,
             // Keep icon and license as absolute paths; Inno may resolve relative LicenseFile against SourceDir
             setupIconFile: constants.paths.setupIconPath,
             licenseFile: constants.paths.licenseFilePath,

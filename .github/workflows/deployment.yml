@@ -37,21 +37,35 @@ jobs:
           submodules: true
           fetch-depth: 0 # required for gitversion
 
-      # Ensure Inno Setup is installed on the runner (x64). Chocolatey is preinstalled on windows-2022.
+      # Ensure Inno Setup is installed on the runner (x64), and upgrade to a version that supports ExecAndCaptureOutput (>= 6.3)
       - name: Install Inno Setup (x64)
         shell: pwsh
         run: |
           choco install innosetup --yes --no-progress
-          $iscc = Get-Command ISCC.exe -ErrorAction SilentlyContinue
-          if (-not $iscc) {
-            $cand = @(
-              'C:/Program Files/Inno Setup 6/ISCC.exe',
-              'C:/Program Files (x86)/Inno Setup 6/ISCC.exe'
-            ) | Where-Object { Test-Path $_ } | Select-Object -First 1
+          function Set-InnoPath {
+            param([string[]]$Candidates)
+            $cand = $Candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
             if (-not $cand) { throw 'ISCC.exe not found after Chocolatey install.' }
             echo "INNO_SETUP_ISCC=$cand" | Out-File -FilePath $env:GITHUB_ENV -Append
+            return $cand
+          }
+          $cands = @(
+            'C:/Program Files/Inno Setup 6/ISCC.exe',
+            'C:/Program Files (x86)/Inno Setup 6/ISCC.exe'
+          )
+          $iscc = Set-InnoPath -Candidates $cands
+          $ver = ([System.Diagnostics.FileVersionInfo]::GetVersionInfo($iscc)).FileVersion
+          try { $verObj = [version]$ver } catch { $verObj = $null }
+          if (-not $verObj -or ($verObj.Major -lt 6 -or ($verObj.Major -eq 6 -and $verObj.Minor -lt 3))) {
+            Write-Host "Detected Inno Setup version $ver (path: $iscc). Upgrading to latest..."
+            choco upgrade innosetup --yes --no-progress
+            # Re-select after upgrade
+            Remove-Item Env:\INNO_SETUP_ISCC -ErrorAction SilentlyContinue
+            $iscc = Set-InnoPath -Candidates $cands
+            $ver = ([System.Diagnostics.FileVersionInfo]::GetVersionInfo($iscc)).FileVersion
+            Write-Host "Using Inno Setup version $ver at $iscc"
           } else {
-            echo "INNO_SETUP_ISCC=$($iscc.Source)" | Out-File -FilePath $env:GITHUB_ENV -Append
+            Write-Host "Using Inno Setup version $ver at $iscc"
           }
 
       - name: Install Tools NPM Libs
@@ -97,6 +111,18 @@ jobs:
         env:
           INNO_SETUP_ISCC: ${{ env.INNO_SETUP_ISCC }}
         run: npm run build-installer
+
+      - name: Check installer exists
+        shell: pwsh
+        run: |
+          if (Test-Path './CnCNet5_RA_Installer.exe') {
+            Write-Host 'Installer found at repo root.'
+            Get-Item './CnCNet5_RA_Installer.exe' | Select-Object FullName,Length,LastWriteTime | Format-Table -AutoSize
+          } else {
+            Write-Warning 'Installer not found at ./CnCNet5_RA_Installer.exe. Searching...'
+            Get-ChildItem -Recurse -File -Filter 'CnCNet5_RA_Installer*.exe' | Select-Object FullName,Length,LastWriteTime | Format-Table -AutoSize
+            throw 'Installer missing!'
+          }
 
       # Upload package archive as a workflow artifact
       - name: Upload Package Workflow Artifact
