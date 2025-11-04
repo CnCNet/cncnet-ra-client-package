@@ -55,8 +55,9 @@ export class BuildInstallerService {
             },
             sourceDir: toRel(constants.paths.packagePath),
             outputDir: toRel(constants.paths.repoPath),
-            setupIconFile: toRel(constants.paths.setupIconPath),
-            licenseFile: toRel(constants.paths.licenseFilePath),
+            // Keep icon and license as absolute paths; Inno may resolve relative LicenseFile against SourceDir
+            setupIconFile: constants.paths.setupIconPath,
+            licenseFile: constants.paths.licenseFilePath,
             outputBaseFilename: constants.outputBaseFilename,
             installDeleteFiles: await this.getInstallDeleteFiles(),
             excludedInstallerFiles: constants.excludedInstallerFiles.join(',')
