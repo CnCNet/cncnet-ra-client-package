@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 import { constants } from '../constants';
 import * as Twig from 'twig';
-import { access, readFile, writeFile } from 'fs';
+import { access, readFile, writeFile, stat, readdir } from 'fs';
 import { TemplateModel } from '../class';
 import { parse as parseIni } from 'js-ini';
 import * as util from 'util';
@@ -127,43 +127,99 @@ export class BuildInstallerService {
 
         const installerBinary = constants.paths.installerBinary;
         const installerScript = constants.paths.installerScript;
-        const installerCwd = __dirname;
+        const installerCwd = resolve(installerBinary, '..');
 
         console.log(`Building installer from script '${installerScript}'`);
         console.log(`Using Inno Setup binary '${installerBinary}'`);
         console.log(`Using working directory '${installerCwd}'`);
+        console.log(`Process current working directory '${process.cwd()}'`);
+        console.log(`Node.js version '${process.version}' (execPath '${process.execPath}')`);
+
+        try {
+            const metadata = await util.promisify(stat)(installerBinary);
+            console.log(`Installer binary stats -> size: ${metadata.size} bytes, mode: ${metadata.mode.toString(8)}`);
+        } catch (error) {
+            console.warn(`Failed to stat installer binary '${installerBinary}': ${(error as Error).message}`);
+        }
+
+        try {
+            const installerDirEntries = await util.promisify(readdir)(installerCwd);
+            console.log(`Installer directory entries: ${installerDirEntries.join(', ')}`);
+        } catch (error) {
+            console.warn(`Failed to read installer directory '${installerCwd}': ${(error as Error).message}`);
+        }
+
+        if (process.env.PATH)
+            console.log(`PATH environment variable includes ${process.env.PATH.split(';').length} entries.`);
+        else
+            console.warn('PATH environment variable is undefined.');
 
         await new Promise<void>((resolvePromise, rejectPromise) => {
-            const inno = spawn(installerBinary, [installerScript], {
+            const startProcess = () => spawn(installerBinary, [installerScript], {
                 cwd: installerCwd,
             });
-
+            const fallbackCommand = `"${installerBinary}" "${installerScript}"`;
+            let fallbackAttempted = false;
             let stderrBuffer = '';
 
-            inno.stdout.on('data', data => {
-                console.log(data.toString());
-            });
-
-            inno.stderr.on('data', data => {
-                const chunk = data.toString();
-                stderrBuffer += chunk;
-                console.error(chunk);
-            });
-
-            inno.on('error', error => {
-                const err = error as NodeJS.ErrnoException;
-                const details = err.code ? `${err.code}: ${err.message}` : err.message;
-                rejectPromise(new Error(`Failed to execute Inno Setup CLI (${details}).`));
-            });
-
-            inno.on('close', code => {
-                if (code !== 0) {
-                    const errorMessage = stderrBuffer.trim() || 'Inno Setup CLI exited with an unknown error.';
-                    return rejectPromise(new Error(`Inno Setup CLI exited with code ${code}: ${errorMessage}`));
+            const launchWithListeners = (proc: ReturnType<typeof spawn>, isFallback: boolean): void => {
+                if (isFallback) {
+                    stderrBuffer = '';
                 }
 
-                resolvePromise();
-            });
+                proc.stdout.on('data', data => {
+                    console.log(data.toString());
+                });
+
+                proc.stderr.on('data', data => {
+                    const chunk = data.toString();
+                    stderrBuffer += chunk;
+                    console.error(chunk);
+                });
+
+                proc.on('error', error => {
+                    const err = error as NodeJS.ErrnoException;
+                    const details = err.code ? `${err.code}: ${err.message}` : err.message;
+
+                    if (!fallbackAttempted) {
+                        fallbackAttempted = true;
+                        console.warn(`Inno Setup spawn failed (${details}). Attempting shell fallback with command: ${fallbackCommand}`);
+                        const fallbackProc = spawn(fallbackCommand, {
+                            cwd: installerCwd,
+                            shell: true,
+                        });
+                        launchWithListeners(fallbackProc, true);
+                        return;
+                    }
+
+                    rejectPromise(new Error(`Failed to execute Inno Setup CLI (${details}).`));
+                });
+
+                proc.on('close', code => {
+                    if (code !== 0) {
+                        const errorMessage = stderrBuffer.trim() || 'Inno Setup CLI exited with an unknown error.';
+                        rejectPromise(new Error(`Inno Setup CLI exited with code ${code}: ${errorMessage}`));
+                        return;
+                    }
+
+                    resolvePromise();
+                });
+            };
+
+            try {
+                const initialProc = startProcess();
+                launchWithListeners(initialProc, false);
+            } catch (error) {
+                const err = error as NodeJS.ErrnoException;
+                const details = err.code ? `${err.code}: ${err.message}` : err.message;
+                console.warn(`Direct spawn of Inno Setup failed immediately (${details}). Attempting shell fallback with command: ${fallbackCommand}`);
+                fallbackAttempted = true;
+                const fallbackProc = spawn(fallbackCommand, {
+                    cwd: installerCwd,
+                    shell: true,
+                });
+                launchWithListeners(fallbackProc, true);
+            }
         });
     }
 
