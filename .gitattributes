@@ -1,6 +1,7 @@
 # Shell scripts require LF
 *.sh  text eol=lf
 *.ps1 text eol=lf
+*.ts text eol=lf
 
 # Batch scripts require CRLF
 *.cmd text eol=crlf

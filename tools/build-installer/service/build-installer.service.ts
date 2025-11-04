@@ -1,4 +1,4 @@
-import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
+import { spawn } from 'child_process';
 import { constants } from '../constants';
 import * as Twig from 'twig';
 import { access, readFile, writeFile } from 'fs';
@@ -127,33 +127,16 @@ export class BuildInstallerService {
 
         const installerBinary = constants.paths.installerBinary;
         const installerScript = constants.paths.installerScript;
-        const installerCwd = resolve(installerBinary, '..');
+        const installerCwd = __dirname;
 
         console.log(`Building installer from script '${installerScript}'`);
         console.log(`Using Inno Setup binary '${installerBinary}'`);
         console.log(`Using working directory '${installerCwd}'`);
 
         await new Promise<void>((resolvePromise, rejectPromise) => {
-            const startProcess = (): ChildProcessWithoutNullStreams => {
-                return spawn(installerBinary, [installerScript], {
-                    cwd: installerCwd,
-                });
-            };
-
-            let inno: ChildProcessWithoutNullStreams;
-
-            try {
-                inno = startProcess();
-            } catch (error) {
-                const err = error as NodeJS.ErrnoException;
-                const details = err.code ? `${err.code}: ${err.message}` : err.message;
-                const fallbackCommand = `"${installerBinary}" "${installerScript}"`;
-                console.warn(`Direct spawn of Inno Setup failed (${details}). Attempting shell fallback with command: ${fallbackCommand}`);
-                inno = spawn(fallbackCommand, {
-                    cwd: installerCwd,
-                    shell: true,
-                });
-            }
+            const inno = spawn(installerBinary, [installerScript], {
+                cwd: installerCwd,
+            });
 
             let stderrBuffer = '';
 
