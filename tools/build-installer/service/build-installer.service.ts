@@ -54,11 +54,7 @@ export class BuildInstallerService {
                 updatesUrl: constants.app.updatesUrl,
             },
             sourceDir: toRel(constants.paths.packagePath),
-            // Use an absolute path for OutputDir to avoid resolution differences between
-            // Inno Setup's current working directory and the script directory on CI runners.
-            // This ensures the installer ends up at the repo root (./CnCNet5_RA_Installer.exe)
-            // so actions/upload-artifact can reliably find it.
-            outputDir: constants.paths.repoPath,
+            outputDir: toRel(constants.paths.repoPath),
             // Keep icon and license as absolute paths; Inno may resolve relative LicenseFile against SourceDir
             setupIconFile: constants.paths.setupIconPath,
             licenseFile: constants.paths.licenseFilePath,
