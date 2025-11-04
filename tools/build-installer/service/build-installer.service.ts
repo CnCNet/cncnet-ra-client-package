@@ -1,4 +1,4 @@
-import { spawn } from 'child_process';
+import { spawn, execFile as _execFile } from 'child_process';
 import { constants } from '../constants';
 import * as Twig from 'twig';
 import { access, readFile, writeFile, stat, readdir } from 'fs';
@@ -123,9 +123,7 @@ export class BuildInstallerService {
     }
 
     private async buildInstaller(): Promise<void> {
-        await this.ensureInstallerBinaryExists();
-
-        const installerBinary = constants.paths.installerBinary;
+        const installerBinary = await this.resolveInstallerBinary();
         const installerScript = constants.paths.installerScript;
         const installerCwd = resolve(installerBinary, '..');
 
@@ -223,12 +221,67 @@ export class BuildInstallerService {
         });
     }
 
-    private async ensureInstallerBinaryExists(): Promise<void> {
+    private async resolveInstallerBinary(): Promise<string> {
+        // Priority order:
+        // 1) INNO_SETUP_ISCC env var
+        // 2) Vendored tools/build-installer/inno/bin/ISCC.exe
+        // 3) Well-known install paths
+        // 4) PATH (where ISCC.exe)
+        const candidates: string[] = [];
+
+        const envVar = process.env.INNO_SETUP_ISCC || process.env.ISCC_PATH;
+        if (envVar) candidates.push(envVar);
+
+        candidates.push(constants.paths.installerBinary);
+
+        // Common install locations on Windows agents
+        candidates.push(
+            'C:/Program Files/Inno Setup 6/ISCC.exe',
+            'C:/Program Files (x86)/Inno Setup 6/ISCC.exe'
+        );
+
+        // Try PATH via 'where'
+        const execFile = util.promisify(_execFile);
         try {
-            await util.promisify(access)(constants.paths.installerBinary);
-        } catch (error) {
-            throw new Error(`Inno Setup binary not found at '${constants.paths.installerBinary}'. Install Inno Setup 6 or update constants.paths.installerBinary to point at ISCC.exe.`);
+            const { stdout } = await execFile('where', ['ISCC.exe']);
+            const lines = stdout.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+            for (const line of lines) {
+                if (!candidates.includes(line)) candidates.push(line);
+            }
+        } catch {
+            // ignore
         }
-        console.log(`Verified Inno Setup binary exists at '${constants.paths.installerBinary}'.`);
+
+        // Validate existence and return the first that both exists and spawns
+        for (const cand of candidates) {
+            try {
+                await util.promisify(access)(cand);
+                // Quick sanity check: try to start with '/?' to verify compatibility
+                const ok = await new Promise<boolean>(resolveCheck => {
+                    try {
+                        const p = spawn(cand, ['/?'], { windowsHide: true });
+                        let settled = false;
+                        p.on('error', () => { if (!settled) { settled = true; resolveCheck(false); } });
+                        p.on('close', () => { if (!settled) { settled = true; resolveCheck(true); } });
+                        setTimeout(() => { if (!settled) { settled = true; try { p.kill(); } catch {} resolveCheck(true); } }, 4000);
+                    } catch {
+                        resolveCheck(false);
+                    }
+                });
+                if (ok) {
+                    console.log(`Resolved Inno Setup CLI at '${cand}'.`);
+                    return cand;
+                }
+            } catch {
+                // not accessible, continue
+            }
+        }
+
+        const hint = [
+            `Checked: ${candidates.join('; ')}`,
+            `Set env INNO_SETUP_ISCC to an absolute path to ISCC.exe, or install Inno Setup on the runner`,
+            `Example Chocolatey: choco install innosetup --yes`
+        ].join('\n');
+        throw new Error(`Unable to locate a working Inno Setup ISCC.exe.\n${hint}`);
     }
 }

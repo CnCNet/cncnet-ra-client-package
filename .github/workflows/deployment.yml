@@ -37,6 +37,23 @@ jobs:
           submodules: true
           fetch-depth: 0 # required for gitversion
 
+      # Ensure Inno Setup is installed on the runner (x64). Chocolatey is preinstalled on windows-2022.
+      - name: Install Inno Setup (x64)
+        shell: pwsh
+        run: |
+          choco install innosetup --yes --no-progress
+          $iscc = Get-Command ISCC.exe -ErrorAction SilentlyContinue
+          if (-not $iscc) {
+            $cand = @(
+              'C:/Program Files/Inno Setup 6/ISCC.exe',
+              'C:/Program Files (x86)/Inno Setup 6/ISCC.exe'
+            ) | Where-Object { Test-Path $_ } | Select-Object -First 1
+            if (-not $cand) { throw 'ISCC.exe not found after Chocolatey install.' }
+            echo "INNO_SETUP_ISCC=$cand" | Out-File -FilePath $env:GITHUB_ENV -Append
+          } else {
+            echo "INNO_SETUP_ISCC=$($iscc.Source)" | Out-File -FilePath $env:GITHUB_ENV -Append
+          }
+
       - name: Install Tools NPM Libs
         working-directory: tools
         run: npm ci
@@ -77,6 +94,8 @@ jobs:
       # Create installer
       - name: Build Installer
         working-directory: tools
+        env:
+          INNO_SETUP_ISCC: ${{ env.INNO_SETUP_ISCC }}
         run: npm run build-installer
 
       # Upload package archive as a workflow artifact
