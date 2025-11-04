@@ -131,6 +131,7 @@ export class BuildInstallerService {
 
         console.log(`Building installer from script '${installerScript}'`);
         console.log(`Using Inno Setup binary '${installerBinary}'`);
+        console.log(`Using working directory '${installerCwd}'`);
 
         await new Promise<void>((resolvePromise, rejectPromise) => {
             const startProcess = (): ChildProcessWithoutNullStreams => {
@@ -145,10 +146,12 @@ export class BuildInstallerService {
                 inno = startProcess();
             } catch (error) {
                 const err = error as NodeJS.ErrnoException;
-                console.warn(`Direct spawn of Inno Setup failed (${err.code ?? err.message}). Attempting cmd.exe fallback.`);
-                inno = spawn('cmd.exe', ['/d', '/s', '/c', `"${installerBinary}" "${installerScript}"`], {
+                const details = err.code ? `${err.code}: ${err.message}` : err.message;
+                const fallbackCommand = `"${installerBinary}" "${installerScript}"`;
+                console.warn(`Direct spawn of Inno Setup failed (${details}). Attempting shell fallback with command: ${fallbackCommand}`);
+                inno = spawn(fallbackCommand, {
                     cwd: installerCwd,
-                    windowsVerbatimArguments: true,
+                    shell: true,
                 });
             }
 
