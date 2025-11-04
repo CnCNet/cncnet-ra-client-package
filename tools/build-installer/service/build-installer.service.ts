@@ -5,7 +5,7 @@ import { access, readFile, writeFile, stat, readdir } from 'fs';
 import { TemplateModel } from '../class';
 import { parse as parseIni } from 'js-ini';
 import * as util from 'util';
-import { resolve } from 'path';
+import { resolve, relative } from 'path';
 
 export class BuildInstallerService {
     public static run(): void {
@@ -41,6 +41,8 @@ export class BuildInstallerService {
 
     private async getTemplateModel(): Promise<TemplateModel> {
         const appVersion = await this.getAppVersion();
+        const scriptDir = resolve(constants.paths.installerScript, '..');
+        const toRel = (abs: string) => relative(scriptDir, abs);
         return {
             app: {
                 name: constants.app.name,
@@ -51,10 +53,10 @@ export class BuildInstallerService {
                 supportUrl: constants.app.supportUrl,
                 updatesUrl: constants.app.updatesUrl,
             },
-            sourceDir: constants.paths.packagePath,
-            outputDir: constants.paths.repoPath,
-            setupIconFile: constants.paths.setupIconPath,
-            licenseFile: constants.paths.licenseFilePath,
+            sourceDir: toRel(constants.paths.packagePath),
+            outputDir: toRel(constants.paths.repoPath),
+            setupIconFile: toRel(constants.paths.setupIconPath),
+            licenseFile: toRel(constants.paths.licenseFilePath),
             outputBaseFilename: constants.outputBaseFilename,
             installDeleteFiles: await this.getInstallDeleteFiles(),
             excludedInstallerFiles: constants.excludedInstallerFiles.join(',')
