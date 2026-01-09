@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "clientogl/2.12.16": {
+      "clientogl/2.12.17-pullrequest0883-0008": {
         "dependencies": {
           "ClientGUI": "1.0.0",
           "ClientUpdater": "1.0.0",
@@ -22,7 +22,8 @@
           "System.Management": "8.0.0",
           "System.Private.Uri": "4.3.2",
           "System.Text.Json": "8.0.5",
-          "lzo.net": "0.0.6"
+          "lzo.net": "0.0.6",
+          "Rampastring.XNAUI.UniversalGL.Reference": "0.1.0.0"
         },
         "runtime": {
           "clientogl.dll": {}
@@ -31,7 +32,7 @@
       "DiscordRichPresence/1.2.1.24": {
         "dependencies": {
           "Microsoft.Win32.Registry": "4.5.0",
-          "Newtonsoft.Json": "13.0.1"
+          "Newtonsoft.Json": "13.0.4"
         },
         "runtime": {
           "lib/netstandard2.0/DiscordRPC.dll": {
@@ -59,7 +60,7 @@
       },
       "Microsoft.AspNet.WebApi.Client/6.0.0": {
         "dependencies": {
-          "Newtonsoft.Json": "13.0.1",
+          "Newtonsoft.Json": "13.0.4",
           "Newtonsoft.Json.Bson": "1.0.2",
           "System.Memory": "4.5.5",
           "System.Threading.Tasks.Extensions": "4.5.4"
@@ -497,17 +498,17 @@
           "Microsoft.NETCore.Platforms": "2.0.0"
         }
       },
-      "Newtonsoft.Json/13.0.1": {
+      "Newtonsoft.Json/13.0.4": {
         "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
             "assemblyVersion": "13.0.0.0",
-            "fileVersion": "13.0.1.25517"
+            "fileVersion": "13.0.4.30916"
           }
         }
       },
       "Newtonsoft.Json.Bson/1.0.2": {
         "dependencies": {
-          "Newtonsoft.Json": "13.0.1"
+          "Newtonsoft.Json": "13.0.4"
         },
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {
@@ -521,28 +522,6 @@
           "lib/netstandard2.0/OpenMcdf.dll": {
             "assemblyVersion": "2.4.1.0",
             "fileVersion": "2.4.1.0"
-          }
-        }
-      },
-      "Rampastring.Tools/2.0.7": {
-        "runtime": {
-          "lib/net8.0/Rampastring.Tools.dll": {
-            "assemblyVersion": "2.0.7.0",
-            "fileVersion": "2.0.7.0"
-          }
-        }
-      },
-      "Rampastring.XNAUI.UniversalGL/3.1.6": {
-        "dependencies": {
-          "MonoGame.Framework.DesktopGL": "3.8.1.303",
-          "Rampastring.Tools": "2.0.7",
-          "SixLabors.ImageSharp": "2.1.11",
-          "TextCopy": "6.2.1"
-        },
-        "runtime": {
-          "lib/net8.0/Rampastring.XNAUI.UniversalGL.dll": {
-            "assemblyVersion": "3.1.6.0",
-            "fileVersion": "3.1.6.0"
           }
         }
       },
@@ -727,7 +706,7 @@
       },
       "ClientCore/1.0.0": {
         "dependencies": {
-          "Rampastring.Tools": "2.0.7",
+          "Rampastring.Tools": "1.0.0",
           "System.Text.Encoding.CodePages": "8.0.0",
           "Ude.NetStandard": "1.2.0"
         },
@@ -738,7 +717,8 @@
       "ClientGUI/1.0.0": {
         "dependencies": {
           "ClientCore": "1.0.0",
-          "Rampastring.XNAUI.UniversalGL": "3.1.6"
+          "Newtonsoft.Json": "13.0.4",
+          "Rampastring.XNAUI.UniversalGL": "1.0.0"
         },
         "runtime": {
           "ClientGUI.dll": {}
@@ -747,17 +727,40 @@
       "ClientUpdater/1.0.0": {
         "dependencies": {
           "ClientCore": "1.0.0",
-          "Microsoft.AspNet.WebApi.Client": "6.0.0",
-          "Rampastring.Tools": "2.0.7"
+          "Microsoft.AspNet.WebApi.Client": "6.0.0"
         },
         "runtime": {
           "ClientUpdater.dll": {}
+        }
+      },
+      "Rampastring.Tools/1.0.0": {
+        "runtime": {
+          "Rampastring.Tools.dll": {}
+        }
+      },
+      "Rampastring.XNAUI.UniversalGL/1.0.0": {
+        "dependencies": {
+          "MonoGame.Framework.DesktopGL": "3.8.1.303",
+          "Rampastring.Tools": "1.0.0",
+          "SixLabors.ImageSharp": "2.1.11",
+          "TextCopy": "6.2.1"
+        },
+        "runtime": {
+          "Rampastring.XNAUI.UniversalGL.dll": {}
+        }
+      },
+      "Rampastring.XNAUI.UniversalGL.Reference/0.1.0.0": {
+        "runtime": {
+          "Rampastring.XNAUI.UniversalGL.dll": {
+            "assemblyVersion": "0.1.0.0",
+            "fileVersion": "0.1.0.0"
+          }
         }
       }
     }
   },
   "libraries": {
-    "clientogl/2.12.16": {
+    "clientogl/2.12.17-pullrequest0883-0008": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -1021,12 +1024,12 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
-    "Newtonsoft.Json/13.0.1": {
+    "Newtonsoft.Json/13.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
-      "path": "newtonsoft.json/13.0.1",
-      "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
+      "sha512": "sha512-pdgNNMai3zv51W5aq268sujXUyx7SNdE2bj1wZcWjAQrKMFZV260lbqYop1d2GM67JI1huLRwxo9ZqnfF/lC6A==",
+      "path": "newtonsoft.json/13.0.4",
+      "hashPath": "newtonsoft.json.13.0.4.nupkg.sha512"
     },
     "Newtonsoft.Json.Bson/1.0.2": {
       "type": "package",
@@ -1041,20 +1044,6 @@
       "sha512": "sha512-0XVhI+P6pe80xYntIeF6H4F7AIL4ZolMTI5vkm3QUt9XTnRJht6CNYk1eSfI8YInRble6cw91ypF5llPXzKD/A==",
       "path": "openmcdf/2.4.1",
       "hashPath": "openmcdf.2.4.1.nupkg.sha512"
-    },
-    "Rampastring.Tools/2.0.7": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-BchEewWN1D1x2Myq/Cqb6uqw05VsFSn9EEs2BHy1b3PCKGp2NuECfc9oPdvTW88tyVWx9tFR3mfJ+sjW2E5GFQ==",
-      "path": "rampastring.tools/2.0.7",
-      "hashPath": "rampastring.tools.2.0.7.nupkg.sha512"
-    },
-    "Rampastring.XNAUI.UniversalGL/3.1.6": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-RFlrHWrroG6MUZnyu5pH8grZwhg6FhfTCEtLX3+voe8Jcdn7D1iKSKFo//etmpZQerR//9mmDGxL1c2X6qGOJA==",
-      "path": "rampastring.xnaui.universalgl/3.1.6",
-      "hashPath": "rampastring.xnaui.universalgl.3.1.6.nupkg.sha512"
     },
     "SixLabors.ImageSharp/2.1.11": {
       "type": "package",
@@ -1229,6 +1218,21 @@
     },
     "ClientUpdater/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Rampastring.Tools/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Rampastring.XNAUI.UniversalGL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Rampastring.XNAUI.UniversalGL.Reference/0.1.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }
