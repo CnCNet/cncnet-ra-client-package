@@ -1,0 +1,142 @@
+[Basic]
+NewINIFormat=3
+Name=x187-GTK-3 Way-126x126 P4 WideOpen
+
+[Map]
+Theater=TEMPERATE
+X=1
+Y=1
+Width=126
+Height=126
+
+[Waypoints]
+0=878
+1=882
+2=885
+3=875
+4=8199
+5=7815
+6=15471
+7=15474
+98=4427
+
+[MapPack]
+1=9QAAIIH//gEB/4JhABAC/voA/zEA/wQBBgGB2f/xAAsD/wgB+gGB2UEA//gADAQSCv/8AA
+2=gFMwr/+gAKBlQK//gADAf/AAH8A3EA//YADgnJBgr/9AAQCssGC//yABILzQYM//AAFAzP
+3=Bg3/7gAWDdEGDv/sABgO0wYP/+oAGg/VBhD/6AAcENcGEf/mAB4R2QYS/+QAIBLbBhP/4g
+4=AiE90GFP/gACQU3wYV/94AJhXhBhb/3AAoFuMGF//aACoX5QYY/9gALBjnBhn/1gAuGekG
+5=Gv/UADAa6wYb/9IAMhvtBhz/0AA0HO8GHf/OADYd8QYe/8YAOB6AywEAIIH/IAGC2QAwCO
+6=0NAIJhADAC/sAA//UGAHEC/4oAQgDTRAHbSAH/RgAGAf+CAEoB19IB20YC/0gABgL/jABM
+7=A+EyA/9CAf4C/44APgH/cgDOAv+SADoA/24A0gHh4gb+ogD//3YMBgeDBAAM/1MASRODAw
+8=A3AAL/ogDYE4IEABEA/04AfhSCAwAQAhEA69YU/2oABhWDNgA2APhQAhEA934VgwQADQAC
+9=UA6BBSD8/6wA0BWBASACMQKBCCACgQpACIEHIALbhBYQQhEAMQKCBQAxADBUgRAgAv9oAN
+10=wW6UQGcQAwqtuAF9GcF4EFyHMWMQCBDQD8MQBQVP+aANYXgycAJ2CmyXoYEPYQDM2QGM2c
+11=GBDoy3QXUQDJeBn/bADWGOlCBRD+z3IZ2YIaMQKDCgAJIAIx6Mt0GDEAzZAa69YZ/3QABh
+12=qBOQACcApQDlAMUBDPoBpw5IEcIAKBGyACzcgagxwAEwAC/2gA3hhwBulQGXEAyXgczXQb
+13=MAJRAFAQgTAAAsm8G4MfADIAAnAwgRIgAv+QAN4by24a6XwczaYd/4wAuBznQx7Vbh1y8O
+14=WQHdHaG8lwHv+WANgd5W4c3Zge0dgey24e5dgegMsBACCB/yABgtkA/mYA/4InABACgQFA
+15=AoE5ynUAUA4QCnAM054AgRIgAtlgANG2ANfrAP90AAYAEOZQ+nAM4ZIA09YAgygAKNyrAf
+16=+CAOwAEKSBKt6VAeGSAoEuAAKBCSACgQcgAoMKADQAAnAggRYgAv9kAN4BgWEAPIJhADAG
+17=3SIDgiYAEAL/YAB0AjD859wC/2gABAP/SgBuAzACybwDybAE7dYD/QQEcALlTgSBGAAC/0
+18=oAcgTNwgX/mADUBIIsABACUKaBGQAEgSIAAoEZIAL/TACIBYE4IAL/aADaBXEC3yIHyW4G
+19=EPxxAO2EBs9+BoEhIAKBHwAC7dYG/24ABAcQAoEjAAIw/hAWy4QHgxwAHgACgxwAHSACgR
+20=wgAsmaCIEc0HkHgRxA/lEA7RQI/QYC40gIhP//NQAQAhD+MQBQGDDGMOYQ/oEeAMbVmgiB
+21=H855CFD8gSH2Bwn/aAAGCTECEP7LYgrvhgnJfgr/wgDECfeFC/+wAMAK/pYA//8+DAYM50
+22=QI/mQA/9NEGdtIGf9mAAYG/mIA/9fSGdtGGvcGGsnkGv+OAEob4TIb/1AB/hr+gAD//34A
+23=zhr+hgD//2wA0hn/jgBEHvHLH4D9AAAggf8gAYLZADAI6w0AgmEAMAL+wgD/8QYA/8oAPA
+24=DxBAH/zAA6Ae8EAv/OADgC7QQD/9AANgPrBAT/0gA0BOkEBf/UADIF5wQG/9YAMAblBAf/
+25=2AAuB+MECP/aACwI4QQJ/9wAKgnfBAr/3gAoCt0EC//gACYL2wQM/+IAJAzZBA3/5AAiDd
+26=cEDv/mACAO1QQP/+gAHg/TBBD/6gAcENEEEf/sABoRzwQS/+4AGBLNBBP/8AAWE8sEFP/y
+27=ABQUyQQV//QAEhVxAP/2ABAWUQD/+AAOFzEA//oADBgRAP/8AAoZ//4ACBlw/oHZ//EACx
+28=z/AgECG1EA/vcB/4H/gAwBACCBAP49GgCBBOcUGoMDAAH+UQAAhAgJBQbjlxqGBQYHAwQF
+29=/ksAAIcBAgoLDA0OEAXaIxog9YgCCAkKCwYHCP5LAACGBAUPEBESAAmDERITAI0QkSAHzL
+30=AagQQRIYIEBTClzswb+PwbhQcIFBUWEAmDFhcYAVqBAQAEAAPIvxoxIED5gRAws+TAGuMU
+31=G1AKhhwdBgcAAABlAANxj2EghA4PCQpRDkAJ/kMAANbqGhGPAJ0AjEEggxITDFAcgw0OD/
+32=5IAADWahsBjxGMUOvMyRv/SgBrGtnsGwCdMPRCFmB4/0oA7Bvi6hqCAgMyFoMBAgPnsh78
+33=kR3LKx7LMB7/TABqG+FtHmAkUPnQuB+ABQEAIIEA8wAAgwMEBegWAIMGBwjlMwDkjwBAUu
+34=WaAIEB5rIA5Q8BggEN4RUBgwABAhADQICDAgME/kgAAIMBAgPflQGCAgMBcgADMC2BBf9L
+35=AOwAgwQFBuWSAGB2gwoLDP5JAACDCAkK7oUCgw8QEf5KAAAR1QFhAWNAC+YUA/5GAAAxgA
+36=GHgQcR14EJ1cYBQHQjef9KAG0BAAGGCQoLCwECIYeECwwNDlDfMu8wA3CdACeDCwEB4zgC
+37=6I8BgwQFDCOFgxESEzLoEOhgAzIkAJ0An4IPEP5RAAAQ3kALgxYXGDLogQEwB0ANUJ2FEh
+38=MUFRb+UQAAAVjiuAIAnYQZGhsc/hgaAIEAgA==
+
+[TERRAIN]
+7908=T14
+8414=T12
+7902=T08
+7904=T08
+8546=T08
+8165=T08
+
+[OverlayPack]
+1=nQEAIIH//vUA/4kFBgYIBggFCAj+dwD/ggYFAH6EBgcHB/6IAP+BCfkHAv5EAP//fAAJAi
+2=BC/3sACwIwRP96AA0CQEb/fQAPAvQHBP5FAP9gSv92AI4EQHfwCQX+RwD/yLYF/3QAkAVg
+3=dewLBv5JAP/Ksgb/cgCSBsgQB+gNB/5LAP/Mrgf/cACUB8oSCOQPCP5NAP/Oqgj/bgCWCM
+4=wUCeARCf5PAP/Qpgn/bACYCc4WCtwTCv5RAP/Sogr/agCaCtAYC9gVC/5TAP/Ungv/aACc
+5=C9IaDNgADP5RAP/WGwz/ZgCeDNSZC9QACv5TAP/Ymgv/ZACgDdYYC9AACP5VAP/aGQv/Xg
+6=AnDNyDAs2ABv5PAP9AVdyYCv9cACsL3oMCy34E/kQA/2BKYFXgGAr/RQDAAsspEd8lEP9Y
+7=ACYQ7lMQ/k0A/+keEsmdEP5BAP/uaxHKAQT+SQD/z/IQ3gMT/1oALQzjUBP/WgAsDeNbD/
+8=9aACsO/gIJ/4EG3H4BgQkZpv9bAP4UgQbc/gD/YAAhHoEF/3gA/gDGbwH+fAD/gf+AmwEA
+9=IIP/BQb+fgD/gggH/n4A/4IFCP5+AP/egQCBCSAD/noA//+AAKIB/oAI//9cACIC4CULgQ
+10=kQgP9XACUL4KULgQkwgP9VAKYL4CUMQCP/TAAlDGBLAFXdqAxgIv9EAKYMzCgNEH/cKQ3/
+11=VQAlDOeeDeD7DP9FAL8NIQrUiA7/SwCWDdZrDd+EDv9MABwOz/IM3AUPy5kO/ksA/998D8
+12=kAEP5TAP/d/Q/KgBD+VAD/234QzAAR/lkA/+MFEf9aACkR5IUR/1kAqhHlBRL/WgClC+SH
+13=Ev9XAKwS5wUT/1kAJgzliBP/VwAoEOcHFP9XAKgP54gU/1MAsBTrBRX/UgAxFeyFFf9RAL
+14=IV7QUW/1AAMxbuhRb/TwC0Fu8FF/9OADUX8IUX/00AthfxBRj/TAA3GPKFGP9NAKcM8QcZ
+15=/0wAKA/yhxn/SQC6GfUFGv9IADsa9oUa/0cAvBr3BRv/RgA9G/iFG/9FAL4b+QUc/0wAvB
+16=r/ewCLHPgIHf9bACkR/tkA/4UFBQUGBxAB/ncA/xB9hAgFBwf/fwACAAABgA==
+
+[General]
+BailCount=10
+GoldValue=150
+GemValue=150
+OreTruckRate=1
+OreSpreads=yes
+GrowthRate=.02
+
+[Recharge]
+Chrono=7                
+GPS=8                   
+IronCurtain=11          
+Nuke=5                 
+ParaBomb=14             
+Paratrooper=3           
+Saboteur=14             
+Sonar=10                
+SpyPlane=2  
+
+[AI]
+AttackInterval=8        ; average delay between computer attacks
+AttackDelay=9           ; average delay time before computer begins first attack
+PatrolScan=.006         ; minute interval between scanning for enemys while patrolling.
+CreditReserve=100       ; Structure repair will not begin if available cash falls below this amount.
+PathDelay=.009           ; Delay (minutes) between retrying when path is blocked.
+OreNearScan=6           ; cell radius to scan when harvesting a single patch of ore
+OreFarScan=48           ; cells radius to scan when looking for a new ore patch to harvest
+AutocreateTime=4        ; average minutes between creating an 'autocreate' team
+InfantryReserve=2500    ; always build infantry if cash reserve is greater than this
+InfantryBaseMult=1      ; build infantry if building count times this number is less than current infantry quantity
+PowerSurplus=150         ; build power plants until power surplus is at least this amount
+BaseSizeAdd=50999       ; computer base size can be no larger than the largest human opponent, plus this quantity
+RefineryRatio=.16       ; ratio of base that should be composed of refineries
+RefineryLimit=10         ; never build more than this many refineries
+BarracksRatio=.4       ; ratio of base that should be composed of barracks
+BarracksLimit=5         ; never build more than this many barracks
+WarRatio=.5             ; ratio of base that should be composed of war factories
+WarLimit=30              ; never build more than this many war factories
+DefenseRatio=.4         ; ratio of base that should be defensive structures
+DefenseLimit=240         ; maximum number of defensive buildings to build
+AARatio=.14             ; ratio of base that should be anti-aircraft defense
+AALimit=30              ; maximum number of anti-aircraft buildings to build
+TeslaRatio=.16          ; ratio of base that should be telsa coils
+TeslaLimit=25           ; maximum number of tesla coils to build
+HelipadRatio=.12        ; ratio of base that should be composed of helipads
+HelipadLimit=10          ; maximum number of helipads to build
+AirstripRatio=.12       ; ratio of base that should be composed of airstrips
+AirstripLimit=15         ; maximum number of airstrips to build
+CompEasyBonus=no       ; When more than one human in game, computer player goes to "easy" mode?
+Paranoid=yes            ; Will computer players ally with each other if the situation looks bleak?
+PowerEmergency=75%      ; sell buildings to raise power level if it falls below this percentage
+McvRatio=.4
+McvLimit=10
+BuildMcv=yes
