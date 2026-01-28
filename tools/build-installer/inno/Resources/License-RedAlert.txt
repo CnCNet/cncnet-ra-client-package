@@ -1,0 +1,24 @@
+This is an unofficial fan-made installer; CnCNet is not affiliated with Electronic Arts, and all trademarks belong to their respective owners.
+
+Command & Conquer™ and Command & Conquer: Red Alert™ are registered trademarks of Electronic Arts. All rights reserved.
+https://www.commandandconquer.com
+
+To proceed you must agree to the following:
+
+CnCNet Terms & Conditions: https://cncnet.org/terms-and-conditions
+CnCNet Privacy Policy: https://cncnet.org/privacy-policy
+GameSurge Terms of Service: https://gamesurge.net/tos/
+
+The following third-party material is included; please refer to their respective sites for details:
+-
+cnc-ddraw by FunkyFr3sh – MIT License https://github.com/FunkyFr3sh/cnc-ddraw
+-
+DxWnd by ghotik – LGPL v3.0 License https://sourceforge.net/projects/dxwnd/
+-
+Original IrcD.Net code by Thomas Bruderer – License: http://github.com/FreeApophis/ircddotnet/blob/master/LICENSE
+-
+QRes by b_engelbrecht – BSD License https://sourceforge.net/projects/qres/
+-
+ts-ddraw by Toni Spets – MIT License https://github.com/cnc-patch/ts-ddraw
+-
+ZLIB – https://zlib.net/
