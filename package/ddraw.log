@@ -1,0 +1,15 @@
+5324 19:54:08.751 Process path: C:\Users\RT\Desktop\Red Alert 1-CnCNET\ra95.dat
+5324 19:54:08.752 Environment variable __COMPAT_LAYER = ""
+5324 19:54:08.752 Loading DDrawCompat from C:\Users\RT\Desktop\Red Alert 1-CnCNET\DDRAW.dll
+5324 19:54:08.786 DDrawCompat loaded successfully
+5324 19:54:10.607 Installing registry hooks
+5324 19:54:10.607 Installing Direct3D driver hooks
+5324 19:54:10.607 Installing DirectDraw hooks
+5324 19:54:10.629 Hooking user mode display driver: "nvd3dum.dll"
+5324 19:54:10.721 Installing Direct3D hooks
+5324 19:54:10.793 Installing GDI hooks
+5324 19:54:10.824 Installing display mode hooks
+5324 19:54:10.824 Finished installing hooks
+5324 19:54:15.116 GDI used DC cache size: 1
+5324 19:59:18.825 Detaching DDrawCompat
+5324 19:59:18.949 DDrawCompat detached successfully
