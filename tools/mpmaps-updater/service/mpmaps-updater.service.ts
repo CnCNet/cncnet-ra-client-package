@@ -36,13 +36,13 @@ export class MpMapsUpdaterService {
     }
 
     /**
-     * This merges the map data from .map files and the MPMaps.ini file.
+     * This merges the map data from .mpr files and the MPMaps.ini file.
      * @param mpMapsIniFile the MPMaps.ini file to merge
      * @param mapIniFiles the list of maps found on the system
      * @private
      */
     private async mergeMapsKeys(mpMapsIniFile: IniFile, mapIniFiles: IniFile[]): Promise<void> {
-        console.log('Merging MPMaps.ini file with .map files');
+        console.log('Merging MPMaps.ini file with .mpr files');
         const addedMapFiles: IniFile[] = await this.addNewMapIniFiles(mpMapsIniFile, mapIniFiles);
         const removedMapKeys: string[] = await this.removeMissingMaps(mpMapsIniFile, mapIniFiles);
         await this.updateMultiMaps(mpMapsIniFile, addedMapFiles, removedMapKeys);
@@ -165,7 +165,7 @@ export class MpMapsUpdaterService {
     }
 
     /**
-     * If .map files are removed from the repo, we must also remove them from the MPMaps.ini file.
+     * If .mpr files are removed from the repo, we must also remove them from the MPMaps.ini file.
      * @param {IniFile} mpMapsIniFile the file to remove maps from
      * @param {IniFile[]} mapIniFiles the list of maps found on the system
      * @return {string[]} missing map keys
@@ -189,7 +189,7 @@ export class MpMapsUpdaterService {
     }
 
     /**
-     * If .map files are removed from the repo, we must also remove them from the MPMaps.ini file.
+     * If .mpr files are removed from the repo, we must also remove them from the MPMaps.ini file.
      * @param mpMapsIniFile the file to remove maps from
      * @param currentMapKeys the current maps in the MPMaps.ini file
      * @param missingMapKeys the maps that should be removed from the MPMaps.ini file
@@ -211,7 +211,7 @@ export class MpMapsUpdaterService {
         const updateExecIniFile = await this.getUpdateExecIniFile();
         const deleteFiles = updateExecIniFile[constants.updateExecSections.deleteFile] as string[];
         const keysToAdd = missingMapKeys.map(key => [
-            `${key}.map`,
+            `${key}.mpr`,
             `${key}.png`
         ]).flat();
 
