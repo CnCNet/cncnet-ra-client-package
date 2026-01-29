@@ -25,7 +25,7 @@ export class MapNameCaseFixService {
 
     private async run(): Promise<void> {
         // scan MPMaps.ini file for eligible maps
-        // compare keys found in MPMaps.ini to filenames for *.map and *.png files
+        // compare keys found in MPMaps.ini to filenames for *.mpr and *.png files
         await this.loadMapDirectoryFilesAsync();
         const invalidMapPairings: MapKeyPairing[] = (await this.mpMapsFileService.getMapKeysAsync())
             .map(mapKey => this.getInvalidMapPairing(mapKey))

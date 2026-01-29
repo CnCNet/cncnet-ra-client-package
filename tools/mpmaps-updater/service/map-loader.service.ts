@@ -4,12 +4,12 @@ import * as util from 'util'
 import { IniFile } from '../class';
 import { extname, join } from 'path';
 
-const MAP_FILE_EXTENSIONS = ['.map'];
+const MAP_FILE_EXTENSIONS = ['.mpr'];
 
 export class MapLoaderService {
 
     public async getMapIniFilesAsync(): Promise<IniFile[]> {
-        console.log('Reading all .map files');
+        console.log('Reading all .mpr files');
         return await this.getMapFilesFromDirAsync(constants.paths.maps);
     }
 
