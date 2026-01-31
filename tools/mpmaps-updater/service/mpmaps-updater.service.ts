@@ -45,6 +45,7 @@ export class MpMapsUpdaterService {
         console.log('Merging MPMaps.ini file with .mpr files');
         const addedMapFiles: IniFile[] = await this.addNewMapIniFiles(mpMapsIniFile, mapIniFiles);
         const removedMapKeys: string[] = await this.removeMissingMaps(mpMapsIniFile, mapIniFiles);
+        await this.updateExistingMapsWithDimensions(mpMapsIniFile, mapIniFiles);
         await this.updateMultiMaps(mpMapsIniFile, addedMapFiles, removedMapKeys);
     }
 
@@ -171,6 +172,47 @@ export class MpMapsUpdaterService {
         const mpMapsKey = mapIniFile.getMpMapsKey();
         console.log(`Adding map section to MPMaps.ini: '${mpMapsKey}'`);
         mpMapsIniFile.setMapSection(mpMapsKey, newMapSection);
+    }
+
+    /**
+     * Update existing map entries with map dimensions from .mpr files
+     * @param mpMapsIniFile the MPMaps.ini file to update
+     * @param mapIniFiles the list of maps found on the system
+     * @private
+     */
+    private async updateExistingMapsWithDimensions(mpMapsIniFile: IniFile, mapIniFiles: IniFile[]): Promise<void> {
+        console.log('Updating existing maps with dimensions from .mpr files');
+        const dimensionKeys = ['X', 'Y', 'Width', 'Height'];
+        for (let mapIniFile of mapIniFiles) {
+            const mpMapsKey = mapIniFile.getMpMapsKey();
+            const existingSection = mpMapsIniFile.getSection(mpMapsKey);
+
+            if (existingSection) {
+                const mapSection = mapIniFile.getMapSection() || {};
+                // Search for dimension key/value pairs within [Map] section
+                const dimensions: { [key: string]: string } = {};
+                for (const key of dimensionKeys) {
+                    if (mapSection[key]) {
+                        dimensions[key] = mapSection[key];
+                    }
+                }
+                // Update with map dimensions if all are found in the .mpr file
+                if (Object.keys(dimensions).length === dimensionKeys.length) {
+                    const updatedSection = Object.assign({}, existingSection, dimensions);
+                    
+                    // Sort properties alphabetically
+                    const sortedSection = Object.keys(updatedSection).sort((a, b) => {
+                        return a > b ? 1 : -1;
+                    }).reduce((obj, key) => {
+                        obj[key] = updatedSection[key];
+                        return obj;
+                    }, {});
+                    
+                    console.log(`Updating map dimensions for '${mpMapsKey}'`);
+                    mpMapsIniFile.setMapSection(mpMapsKey, sortedSection);
+                }
+            }
+        }
     }
 
     /**
