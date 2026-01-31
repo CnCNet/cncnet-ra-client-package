@@ -27,6 +27,10 @@ const constants = {
         'ForceRandomStartLocations',
         'Size',
         'LocalSize',
+        'X',
+        'Y',
+        'Width',
+        'Height',
         'Waypoint.*',
         'TeamStartMapping.*'
     ],

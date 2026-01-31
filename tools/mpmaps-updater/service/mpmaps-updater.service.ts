@@ -94,6 +94,15 @@ export class MpMapsUpdaterService {
             newSection[`Waypoint${i}`] = waypoints[i];
         }
 
+        // Extract map dimensions
+        const mapSection = mapIniFile.getMapSection() || {};
+        if (mapSection['X'] && mapSection['Y'] && mapSection['Width'] && mapSection['Height']) {
+            newSection['X'] = mapSection['X'];
+            newSection['Y'] = mapSection['Y'];
+            newSection['Width'] = mapSection['Width'];
+            newSection['Height'] = mapSection['Height'];
+        }
+
         return await this.normalizeSection(newSection);
     }
 
