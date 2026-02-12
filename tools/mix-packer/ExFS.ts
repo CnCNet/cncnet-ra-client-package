@@ -8,21 +8,6 @@ function toPosixPath(pathStr: string) {
 }
 
 export default class ExFS {
-    static deleteAllMix(folderPath: string) {
-        const globOptions = {
-            nodir: true,
-            absolute: true,
-        };
-
-        const globPattern = toPosixPath(path.join(folderPath, "**", "*.mix"));
-
-        const fileArray = glob.sync(globPattern, globOptions);
-        fileArray.forEach((item) => {
-            fs.removeSync(item);
-            console.log("delete " + item);
-        });
-    }
-
     static GetFileArray(folderPath: string) {
         const globOptions = {
             nodir: true,

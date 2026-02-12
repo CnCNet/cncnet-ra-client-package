@@ -6,7 +6,7 @@ const updateExecPath = resolve(coreConstants.paths.package, 'updateexec');
 const constants = {
     regex: {
         // some maps have bad Briefing values in this format
-        badBriefing: /^Brief:(ALL|TRN)\d{2}(md)?$/,
+        badBriefing: /^Brief:(ALL|TRN)\d{2}$/,
         enemyHouse: /^(\d+,\d+,\d+)\s*;?.*$'/,
         // this is the "ideal" map name: "[4] Awesome Map"
         mapName: /^\[\d\] \S.+$/
