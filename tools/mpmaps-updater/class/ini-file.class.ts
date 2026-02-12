@@ -50,8 +50,8 @@ export class IniFile {
 
     /**
      * Adds/sets the map section to the file, by header
-     * Example: [Maps\Yuri's Revenge\hillbtwn]
-     * @param {string} mpMapKey The key to write, ex: Maps\Yuri's Revenge\hillbtwn
+     * Example: [Maps\Red Alert\hillbtwn]
+     * @param {string} mpMapKey The key to write, ex: Maps\Red Alert\hillbtwn
      * @param {IniValue} iniValue The object to write
      */
     public setMapSection(mpMapKey: string, iniValue: IniValue): void {
@@ -144,7 +144,7 @@ export class IniFile {
 
     /**
      * Can be used to generate the key used for a given map.
-     * Example: Maps\Yuri's Revenge\hillbtwn
+     * Example: Maps\Red Alert\hillbtwn
      * @return {string}
      */
     public getMpMapsKey(): string {
