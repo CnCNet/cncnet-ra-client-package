@@ -9,6 +9,7 @@
     "release-tag-validator": "ts-node release-tag-validator",
     "build-installer": "ts-node build-installer",
     "mpmaps-updater": "ts-node mpmaps-updater",
+    "mix-packer": "ts-node mix-packer",
     "version-writer": "ts-node version-writer",
     "publish-release": "ts-node publish-release",
     "map-name-case-fix": "ts-node map-name-case-fix",

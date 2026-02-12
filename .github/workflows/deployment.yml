@@ -74,6 +74,10 @@ jobs:
         working-directory: tools
         run: npm ci
 
+      - name: Run Mix Packer
+        working-directory: tools
+        run: npm run mix-packer
+
       # This step validates the format of the tag created, if this was a published release.
       # Currently, it must be in the format "ra-X.Y" or "ra-X.Y.Z"
       - name: Validate Tag Name
