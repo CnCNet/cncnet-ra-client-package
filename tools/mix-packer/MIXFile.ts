@@ -62,12 +62,12 @@ export default class MIXFile {
 
         const fileBuffer = Buffer.alloc(size, 0);
         fileBuffer.write("XCC by Olaf van der Spek", 0);
-        fileBuffer.writeInt32BE(0x1a041727, 0x18);
-        fileBuffer.writeInt32BE(0x10198000, 0x1c);
+        // byte 0x18 is already 0x00 (null terminator) from Buffer.alloc
+        Buffer.from([0x1a, 0x04, 0x17, 0x27, 0x10, 0x19, 0x80]).copy(fileBuffer, 0x19);
 
         fileBuffer.writeInt32LE(size, 0x20);
 
-        fileBuffer.writeInt8(0x05, 0x2c);
+        fileBuffer.writeInt32LE(0x01, 0x2c); // game_ra = 1
         fileBuffer.writeInt32LE(fileList.length, 0x30);
         fileBuffer.write(body, 0x34);
 
@@ -80,7 +80,7 @@ export default class MIXFile {
 
     getHeader() {
         const array = Array.from(this.includedFilesID.values());
-        array.sort((a, b) => ~~a.id - ~~b.id);
+        array.sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
 
         const buf = new ExBuffer(array.length * 12 + 10);
         buf.offset = 10;
@@ -116,15 +116,6 @@ export default class MIXFile {
     // ===== statics =====
     static getID(fileName: string): number {
         fileName = fileName.toUpperCase();
-
-        const a1 = fileName.length % 4;
-        if (a1) {
-            const a2 = fileName.length & ~3;
-            fileName += String.fromCharCode(a1);
-            let b = 3 - a1;
-            while (b--) fileName += fileName[a2];
-        }
-
         return MIXFile.rolHash(fileName, 1);
     }
 

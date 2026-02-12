@@ -24,6 +24,9 @@ for (const item of packArray) {
     new MIXFile(pack).save(mix);
 }
 
+// Clean up intermediate .mix files generated inside game-assets
+ExFS.deleteAllMix(inDir);
+
 function inPack(mixDir) {
     return (
         mixDir

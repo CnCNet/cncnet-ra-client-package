@@ -28,4 +28,3 @@ version       text eol=crlf
 *.jpeg binary
 *.bmp binary
 *.psd binary
-MAIN.MIX filter=lfs diff=lfs merge=lfs -text
