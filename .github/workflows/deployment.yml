@@ -39,6 +39,13 @@ jobs:
           submodules: true
           fetch-depth: 0 # required for gitversion
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: tools/package-lock.json
+
       # Ensure Inno Setup is installed on the runner (x64), and upgrade to a version that supports ExecAndCaptureOutput (>= 6.3)
       - name: Install Inno Setup (x64)
         shell: pwsh
@@ -72,7 +79,7 @@ jobs:
 
       - name: Install Tools NPM Libs
         working-directory: tools
-        run: npm ci
+        run: npm ci --omit=dev
 
       - name: Run Mix Packer
         working-directory: tools

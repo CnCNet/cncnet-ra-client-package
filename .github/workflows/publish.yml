@@ -13,10 +13,17 @@ jobs:
       # Checkout the repo
       - name: Checkout repo
         uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: tools/package-lock.json
   
       - name: Install Tools NPM Libs
         working-directory: tools
-        run: npm ci
+        run: npm ci --omit=dev
   
       # This looks for the latest release in our repo and does the following: 
       # - updates our /live mirror path to point to it

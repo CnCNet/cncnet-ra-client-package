@@ -1,8 +1,10 @@
-import { resolve } from 'path';
+import * as path from 'path';
+import * as url from 'url';
 
-const versionWriterBinary = resolve(__dirname, 'bin/VersionWriter.exe');
-const repoRoot = resolve(__dirname, '../../');
-const packagePath = resolve(repoRoot, 'package');
+const currentDir = path.dirname(url.fileURLToPath(import.meta.url));
+const versionWriterBinary = path.resolve(currentDir, 'bin/VersionWriter.exe');
+const repoRoot = path.resolve(currentDir, '../../');
+const packagePath = path.resolve(repoRoot, 'package');
 
 const constants = {
     paths: {

@@ -1,4 +1,4 @@
-import { IniFile } from '../../mpmaps-updater/class';
+import { IniFile } from 'mpmaps-updater/class';
 import { coreConstants } from '../constants';
 
 export class MpMapsFileService {

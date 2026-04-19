@@ -1,5 +1,5 @@
 import { Client } from 'ssh2';
-import { SshConfig } from '@cncnet-core/class/ssh-config.class';
+import { SshConfig } from '../class/ssh-config.class';
 
 export class SshClientService {
     constructor(

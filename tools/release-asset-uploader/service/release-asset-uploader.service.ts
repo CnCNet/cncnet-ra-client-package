@@ -1,8 +1,8 @@
 ﻿import { Context } from '@actions/github/lib/context';
-import { AbstractRepoService } from '@cncnet-core/service';
+import { AbstractRepoService } from 'cncnet-core/service';
 import { existsSync, readFileSync } from 'fs';
 import { program } from 'commander';
-import { ReleaseAssetUploaderOptionValues } from '@cncnet-core/class';
+import { ReleaseAssetUploaderOptionValues } from 'cncnet-core/class';
 import { resolve } from 'path';
 
 export class ReleaseAssetUploaderService extends AbstractRepoService<ReleaseAssetUploaderOptionValues> {

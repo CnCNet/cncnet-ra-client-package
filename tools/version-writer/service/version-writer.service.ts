@@ -1,7 +1,10 @@
 import { spawn } from 'child_process';
 import { constants } from '../constants';
 import { rm } from 'fs/promises';
-import { resolve } from 'path';
+import * as path from 'path';
+import * as url from 'url';
+
+const currentDir = path.dirname(url.fileURLToPath(import.meta.url));
 
 export class VersionWriterService {
     public static async run(): Promise<void> {
@@ -11,7 +14,7 @@ export class VersionWriterService {
     private async run(): Promise<void> {
         await new Promise<void>((resolve, reject) => {
             const versionWriter = spawn(constants.paths.versionWriterBinary, ['/S', constants.paths.packagePath], {
-                cwd: __dirname,
+                cwd: currentDir,
             });
 
             let stderrBuffer = '';
@@ -47,7 +50,7 @@ export class VersionWriterService {
     }
 
     private async deleteVersionWriterCopiedFiles(): Promise<void> {
-        return rm(resolve(constants.paths.packagePath, 'VersionWriter-CopiedFiles'), {
+        return rm(path.resolve(constants.paths.packagePath, 'VersionWriter-CopiedFiles'), {
             force: true,
             recursive: true
         });

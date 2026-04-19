@@ -1,4 +1,4 @@
-import { AbstractOptionValues } from '@cncnet-core/class/abstract-option-values.class';
+import { AbstractOptionValues } from './abstract-option-values.class';
 import { program } from 'commander';
 
 export class PublishReleaseOptionValues extends AbstractOptionValues {

@@ -1,6 +1,6 @@
-import { MpMapsFileService } from '@cncnet-core/class/mp-maps-file.service';
+import { MpMapsFileService } from 'cncnet-core/class/mp-maps-file.service';
 import * as path from 'path';
-import { coreConstants } from '@cncnet-core/constants';
+import { coreConstants } from 'cncnet-core/constants';
 import { readdirSync } from 'fs';
 import * as fs from 'fs';
 

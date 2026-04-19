@@ -1,6 +1,6 @@
 ﻿import { Context } from '@actions/github/lib/context';
-import { DefaultOptionValues } from '@cncnet-core/class';
-import { AbstractRepoService } from '@cncnet-core/service';
+import { DefaultOptionValues } from 'cncnet-core/class';
+import { AbstractRepoService } from 'cncnet-core/service';
 
 /**
  * This action is meant to be run with the github-script action:

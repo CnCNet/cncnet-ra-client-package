@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { coreConstants } from '@cncnet-core/constants';
+import { coreConstants } from 'cncnet-core/constants';
 
 const updateExecPath = resolve(coreConstants.paths.package, 'updateexec');
 

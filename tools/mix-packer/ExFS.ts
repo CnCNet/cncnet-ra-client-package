@@ -1,13 +1,23 @@
-import * as fs from "fs-extra";
+import fs from "fs-extra";
 import * as path from "path";
 import * as glob from "glob";
-const fastFolderSizeSync = require("fast-folder-size/sync") as (target: string) => number;
+import fastFolderSizeSync from "fast-folder-size/sync";
 
 function toPosixPath(pathStr: string) {
     return pathStr.replace(/\\/g, "/");
 }
 
 export default class ExFS {
+    static deleteAllMix(folderPath: string) {
+        const globOptions = { nodir: true, absolute: true };
+        const globPattern = toPosixPath(path.join(folderPath, '**', '*.mix'));
+        const fileArray = glob.sync(globPattern, globOptions);
+        fileArray.forEach((item) => {
+            fs.removeSync(item);
+            console.log('delete ' + item);
+        });
+    }
+
     static GetFileArray(folderPath: string) {
         const globOptions = {
             nodir: true,

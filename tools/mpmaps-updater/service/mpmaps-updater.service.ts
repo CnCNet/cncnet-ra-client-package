@@ -5,7 +5,7 @@ import { IniFile } from '../class';
 import { SortedMapSection } from '../interface';
 import * as util from 'util';
 import { IIniObject, parse as parseIni, stringify } from 'js-ini';
-import { MpMapsFileService } from '@cncnet-core/class/mp-maps-file.service';
+import { MpMapsFileService } from 'cncnet-core/class/mp-maps-file.service';
 
 export class MpMapsUpdaterService {
 

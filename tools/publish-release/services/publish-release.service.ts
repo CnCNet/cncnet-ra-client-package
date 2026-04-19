@@ -1,5 +1,5 @@
-import { AbstractRepoService, IrcClientService, SshClientService } from '@cncnet-core/service';
-import { IrcServerConfig, PublishReleaseOptionValues } from '@cncnet-core/class';
+import { AbstractRepoService, IrcClientService, SshClientService } from 'cncnet-core/service';
+import { IrcServerConfig, PublishReleaseOptionValues } from 'cncnet-core/class';
 import { Context } from '@actions/github/lib/context';
 
 const tagRegex = /^ra-(?<major>\d+).(?<minor>\d+)(?:\.(?<patch>\d+))*$/;

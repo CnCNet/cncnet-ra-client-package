@@ -1,5 +1,5 @@
 import { Client } from 'irc';
-import { IrcServerConfig } from '@cncnet-core/class/irc-server-config.class';
+import { IrcServerConfig } from '../class/irc-server-config.class';
 
 const timeout = 60000; // 1 minute
 /**
