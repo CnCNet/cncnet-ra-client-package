@@ -1,4 +1,4 @@
-﻿import { Context } from '@actions/github/lib/context';
+﻿import { context as defaultContext } from '@actions/github';
 import { DefaultOptionValues } from 'cncnet-core/class';
 import { AbstractRepoService } from 'cncnet-core/service';
 
@@ -7,7 +7,7 @@ import { AbstractRepoService } from 'cncnet-core/service';
  * https://github.com/actions/github-script
  */
 export class ReleaseTagValidatorService extends AbstractRepoService<DefaultOptionValues> {
-    private run(context: Context): void {
+    private run(context: typeof defaultContext): void {
         console.log(`Running ReleaseTagValidatorAction`)
         if (!super.isRelease(context.eventName)) {
             console.log('Not a release')
@@ -27,8 +27,8 @@ export class ReleaseTagValidatorService extends AbstractRepoService<DefaultOptio
         throw `Invalid tag specified: ${context.ref}. Must be in the format 'ra-0.0' or 'ra-0.0.0'.`
     }
 
-    public static run(context?: Context | any): void {
-        new ReleaseTagValidatorService().run(context || new Context());
+    public static run(context?: typeof defaultContext | any): void {
+        new ReleaseTagValidatorService().run(context || defaultContext);
     }
 
     protected getOptionValues(): DefaultOptionValues {

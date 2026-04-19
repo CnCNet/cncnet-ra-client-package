@@ -1,6 +1,6 @@
 import { spawn, execFile as _execFile } from 'child_process';
 import { constants } from '../constants';
-import * as Twig from 'twig';
+import Twig from 'twig';
 import { access, readFile, writeFile, stat, readdir } from 'fs';
 import { TemplateModel } from '../class';
 import { parse as parseIni } from 'js-ini';

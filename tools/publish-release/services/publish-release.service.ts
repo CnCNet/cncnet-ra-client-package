@@ -1,24 +1,20 @@
 import { AbstractRepoService, IrcClientService, SshClientService } from 'cncnet-core/service';
 import { IrcServerConfig, PublishReleaseOptionValues } from 'cncnet-core/class';
-import { Context } from '@actions/github/lib/context';
+import { context as defaultContext } from '@actions/github';
 
 const tagRegex = /^ra-(?<major>\d+).(?<minor>\d+)(?:\.(?<patch>\d+))*$/;
 
 export class PublishReleaseService extends AbstractRepoService<PublishReleaseOptionValues> {
 
-    private options: PublishReleaseOptionValues;
-
     constructor() {
         super();
-
-        this.options = this.getOptionValues();
     }
 
-    public static run(context?: any | Context): void {
-        new PublishReleaseService().run(context || new Context());
+    public static run(context?: any | typeof defaultContext): void {
+        new PublishReleaseService().run(context || defaultContext);
     }
 
-    private async run(context: any | Context): Promise<void> {
+    private async run(context: any | typeof defaultContext): Promise<void> {
         const releaseVersion = await this.getLatestReleaseNumber(context);
 
         await this.publishReleaseVersionOnServer(releaseVersion);
@@ -32,7 +28,7 @@ export class PublishReleaseService extends AbstractRepoService<PublishReleaseOpt
      * @param context
      * @private
      */
-    private async getLatestReleaseNumber(context: any | Context): Promise<string> {
+    private async getLatestReleaseNumber(context: any | typeof defaultContext): Promise<string> {
         const response = await this.github.rest.repos.getLatestRelease({
             owner: context.repo.owner,
             repo: context.repo.repo,
@@ -58,15 +54,15 @@ export class PublishReleaseService extends AbstractRepoService<PublishReleaseOpt
      */
     private async publishReleaseVersionOnServer(releaseVersion: string): Promise<void> {
         const sshClient = new SshClientService({
-            host: this.options.sshHost,
-            port: this.options.sshPort,
-            username: this.options.sshUsername,
-            privateKey: Buffer.from(this.options.sshKeyBase64, 'base64'),
-            passphrase: this.options.sshPassphrase
+            host: this.optionValues.sshHost,
+            port: this.optionValues.sshPort,
+            username: this.optionValues.sshUsername,
+            privateKey: Buffer.from(this.optionValues.sshKeyBase64, 'base64'),
+            passphrase: this.optionValues.sshPassphrase
         });
 
         await sshClient.executeCommands([
-            `cd ${this.options.raGamePath}`,
+            `cd ${this.optionValues.raGamePath}`,
             `ln -sfn updates/${releaseVersion} live`
         ]);
     }
@@ -80,13 +76,13 @@ export class PublishReleaseService extends AbstractRepoService<PublishReleaseOpt
      */
     private async postIrcUpdateMessage(releaseVersion: string): Promise<void> {
         const config: IrcServerConfig = {
-            server: this.options.ircServer,
-            userName: this.options.ircUserName,
-            nick: this.options.ircNick,
-            password: this.options.ircPassword,
-            realName: this.options.ircRealName
+            server: this.optionValues.ircServer,
+            userName: this.optionValues.ircUserName,
+            nick: this.optionValues.ircNick,
+            password: this.optionValues.ircPassword,
+            realName: this.optionValues.ircRealName
         };
-        const channel = `#${this.options.ircChannel}`;
+        const channel = `#${this.optionValues.ircChannel}`;
         await new IrcClientService(config, channel, releaseVersion).postUpdateMessage();
     }
 

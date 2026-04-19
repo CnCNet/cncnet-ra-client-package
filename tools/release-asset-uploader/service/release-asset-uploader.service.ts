@@ -1,4 +1,4 @@
-﻿import { Context } from '@actions/github/lib/context';
+﻿import { context as defaultContext } from '@actions/github';
 import { AbstractRepoService } from 'cncnet-core/service';
 import { existsSync, readFileSync } from 'fs';
 import { program } from 'commander';
@@ -7,8 +7,8 @@ import { resolve } from 'path';
 
 export class ReleaseAssetUploaderService extends AbstractRepoService<ReleaseAssetUploaderOptionValues> {
 
-    public static run(context?: Context | any): void {
-        new ReleaseAssetUploaderService().run(context || new Context())
+    public static run(context?: typeof defaultContext | any): void {
+        new ReleaseAssetUploaderService().run(context || defaultContext)
             .catch(console.error);
     }
 
@@ -16,7 +16,7 @@ export class ReleaseAssetUploaderService extends AbstractRepoService<ReleaseAsse
         return ReleaseAssetUploaderOptionValues.parse();
     }
 
-    private async run(context: any | Context): Promise<void> {
+    private async run(context: any | typeof defaultContext): Promise<void> {
         const tagName = super.getTagName(context.ref);
         if (!tagName) {
             console.log('No tag/release to upload asset to');
