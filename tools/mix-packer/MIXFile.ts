@@ -80,10 +80,11 @@ export default class MIXFile {
 
     getHeader() {
         const array = Array.from(this.includedFilesID.values());
-        array.sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+        // RA1 engine uses signed 32-bit comparison in bsearch (compfunc casts to long)
+        array.sort((a, b) => (a.id | 0) - (b.id | 0));
 
-        const buf = new ExBuffer(array.length * 12 + 10);
-        buf.offset = 10;
+        const buf = new ExBuffer(array.length * 12 + 6);
+        buf.offset = 6;
 
         for (const item of array) {
             buf.write(item.id);
@@ -92,9 +93,8 @@ export default class MIXFile {
         }
 
         const result = buf.GetBuffer();
-        result.writeUInt32LE(0x00_00_00_00, 0);
-        result.writeUInt16LE(array.length, 4);
-        result.writeUInt32LE(this.body.offset, 6);
+        result.writeUInt16LE(array.length, 0);
+        result.writeUInt32LE(this.body.offset, 2);
 
         return result;
     }
