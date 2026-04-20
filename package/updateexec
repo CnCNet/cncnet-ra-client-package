@@ -17,7 +17,7 @@ Resources\BinariesNET8\UniversalGL\DTAConfig.pdb
 Resources\BinariesNET8\XNA\DTAConfig.dll
 Resources\BinariesNET8\XNA\DTAConfig.pdb
 RedAlertConfig.exe
-RedAlertConfigfull.exe
+RedAlertConfigFull.exe
 
 [DeleteFolder]
 do_not_remove_this_line
