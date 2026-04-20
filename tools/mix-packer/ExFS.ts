@@ -37,7 +37,7 @@ export default class ExFS {
     static GetPackArray(folderPath: string) {
         const globPattern = toPosixPath(path.join(folderPath, "**", "*.pack"));
 
-        let result = glob.sync(globPattern);
+        let result = glob.sync(globPattern, { absolute: true });
 
         result = result.sort((a, b) => b.length - a.length);
 
