@@ -18,6 +18,15 @@ Resources\BinariesNET8\XNA\DTAConfig.dll
 Resources\BinariesNET8\XNA\DTAConfig.pdb
 RedAlertConfig.exe
 RedAlertConfigFull.exe
+INTR_VTX.PAL
+SNOW_VTX.PAL
+TEMP_VTX.PAL
+MOVIES_RA.MEG
+MOVIES_RA.MEG.sml
+edwin.ini
+raed.mix
+raed1.mix
+raed2.mix
 
 [DeleteFolder]
 do_not_remove_this_line
