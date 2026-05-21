@@ -109,13 +109,6 @@
             Creates a color based on a color string in the form "R,G,B,A". All values must be between 0 and 255.
             </summary>
         </member>
-        <member name="M:Rampastring.XNAUI.ContentManagerExtensions.SetRootDirectory(Microsoft.Xna.Framework.Content.ContentManager,System.String)">
-            <summary>
-            Sets the root directory for the ContentManager with XNA vs MonoGame differences.
-            </summary>
-            <param name="contentManager">The ContentManager instance.</param>
-            <param name="rootDirectory">The new root directory path.</param>
-        </member>
         <member name="T:Rampastring.XNAUI.EnhancedSoundEffect">
             <summary>
             A toggleable sound effect that can also have a defined priority
@@ -186,6 +179,28 @@
             <param name="gameTime">Tells how much time has passed since the previous frame.</param>
             <returns>True if the sound effect is still playing, otherwise false.</returns>
         </member>
+        <member name="M:Rampastring.XNAUI.Extensions.ContentManagerExtensions.SetRootDirectory(Microsoft.Xna.Framework.Content.ContentManager,System.String)">
+            <summary>
+            Sets the root directory for the ContentManager with XNA vs MonoGame differences.
+            </summary>
+            <param name="contentManager">The ContentManager instance.</param>
+            <param name="rootDirectory">The new root directory path.</param>
+        </member>
+        <member name="T:Rampastring.XNAUI.Extensions.StringExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="M:Rampastring.XNAUI.Extensions.StringExtensions.SubstringSurrogateAware(System.String,System.Int32,System.Int32)">
+            <summary>
+            Returns a substring of this string starting at <paramref name="start"/> and containing at most
+            <paramref name="maxLength"/> UTF-16 code units, ensuring the result does not end with an orphaned high surrogate.
+            </summary>
+            <param name="str">The string to slice.</param>
+            <param name="start">The zero-based start index of the substring.</param>
+            <param name="maxLength">Maximum number of UTF-16 code units to include in the result. Must be non-negative.</param>
+            <returns>The safe substring.</returns>
+        </member>
         <member name="T:Rampastring.XNAUI.FontManagement.FontManager">
             <summary>
             Manages font loading and rendering for the UI system.
@@ -207,9 +222,21 @@
             </para>
             </remarks>
         </member>
+        <member name="P:Rampastring.XNAUI.FontManagement.FontManager.UseLegacySpriteFonts">
+            <summary>
+            When set before <see cref="M:Rampastring.XNAUI.FontManagement.FontManager.LoadFonts(Microsoft.Xna.Framework.Content.ContentManager,System.Nullable{System.Single})"/> runs, skips the Fonts.ini search and
+            loads only legacy SpriteFontN.xnb assets. Lets clients offer an opt-out from
+            TrueType rendering.
+            </summary>
+        </member>
         <member name="M:Rampastring.XNAUI.FontManagement.FontManager.GetTextShapingSettings">
             <summary>
             Gets the current text shaping settings.
+            </summary>
+        </member>
+        <member name="M:Rampastring.XNAUI.FontManagement.FontManager.GetFontRenderingSettings">
+            <summary>
+            Gets the current font rendering settings.
             </summary>
         </member>
         <member name="M:Rampastring.XNAUI.FontManagement.FontManager.IsTextShapingEnabled">
@@ -222,7 +249,7 @@
             Creates a new FontSystem with current text shaping settings.
             </summary>
         </member>
-        <member name="M:Rampastring.XNAUI.FontManagement.FontManager.LoadFonts(Microsoft.Xna.Framework.Content.ContentManager)">
+        <member name="M:Rampastring.XNAUI.FontManagement.FontManager.LoadFonts(Microsoft.Xna.Framework.Content.ContentManager,System.Nullable{System.Single})">
             <summary>
             Loads fonts from the first Fonts.ini found in asset search paths.
             </summary>
@@ -241,8 +268,13 @@
             - For SpriteFonts: Load the .xnb file
             </para>
             </remarks>
+            <param name="fontResolutionFactor">
+            When non-null, overrides any <c>FontResolutionFactor</c> from <c>[FontRendering]</c>
+            in <c>Fonts.ini</c>. Used by <see cref="M:Rampastring.XNAUI.Renderer.ReloadFontsForScale(System.Single)"/> to keep TTF
+            glyphs sharp when the render target is upscaled.
+            </param>
         </member>
-        <member name="M:Rampastring.XNAUI.FontManagement.FontManager.LoadFontsFromIni(System.String,Microsoft.Xna.Framework.Content.ContentManager,System.String,System.String)">
+        <member name="M:Rampastring.XNAUI.FontManagement.FontManager.LoadFontsFromIni(System.String,Microsoft.Xna.Framework.Content.ContentManager,System.String,System.String,System.Nullable{System.Single})">
             <summary>
             Loads fonts from a specific Fonts.ini file.
             </summary>
@@ -272,6 +304,48 @@
             This method appends new fonts to the existing font list instead of replacing it.
             </summary>
         </member>
+        <member name="T:Rampastring.XNAUI.FontManagement.FontRenderingSettings">
+            <summary>
+            Configuration for FontStashSharp glyph rasterization.
+            </summary>
+        </member>
+        <member name="P:Rampastring.XNAUI.FontManagement.FontRenderingSettings.KernelWidth">
+            <summary>
+            Horizontal blur kernel size used by FontStashSharp when rasterizing glyphs.
+            Maps to <c>FontSystemSettings.KernelWidth</c>. Must be non-negative.
+            </summary>
+        </member>
+        <member name="P:Rampastring.XNAUI.FontManagement.FontRenderingSettings.KernelHeight">
+            <summary>
+            Vertical blur kernel size used by FontStashSharp when rasterizing glyphs.
+            Maps to <c>FontSystemSettings.KernelHeight</c>. Must be non-negative.
+            </summary>
+        </member>
+        <member name="P:Rampastring.XNAUI.FontManagement.FontRenderingSettings.FontResolutionFactor">
+            <summary>
+            Multiplier applied to the rasterization size of each glyph.
+            Values > 1 produce sharper output when text is drawn at scales above 1.0
+            at the cost of a larger atlas footprint.
+            </summary>
+        </member>
+        <member name="P:Rampastring.XNAUI.FontManagement.FontRenderingSettings.TextureWidth">
+            <summary>
+            Width of each FontStashSharp atlas page, in pixels.
+            </summary>
+        </member>
+        <member name="P:Rampastring.XNAUI.FontManagement.FontRenderingSettings.TextureHeight">
+            <summary>
+            Height of each FontStashSharp atlas page, in pixels.
+            </summary>
+        </member>
+        <member name="P:Rampastring.XNAUI.FontManagement.FontRenderingSettings.GlyphRenderResult">
+            <summary>
+            How rasterized glyph pixels are produced.
+            <see cref="F:FontStashSharp.GlyphRenderResult.Premultiplied"/> matches a premultiplied-alpha SpriteBatch,
+            <see cref="F:FontStashSharp.GlyphRenderResult.NonPremultiplied"/> matches AlphaBlend, and
+            <see cref="F:FontStashSharp.GlyphRenderResult.NoAntialiasing"/> produces hard 1-bit edges for pixel-art fonts.
+            </summary>
+        </member>
         <member name="T:Rampastring.XNAUI.FontManagement.TextShapingSettings">
             <summary>
             Configuration for HarfBuzz text shaping.
@@ -298,6 +372,15 @@
             Default: 100
             </summary>
         </member>
+        <member name="M:Rampastring.XNAUI.FontManagement.TTFFontWrapper.GetVerticalCenteringValue">
+            <summary>
+            Returns the value <c>V</c> to plug into <c>(controlHeight - V) / 2</c> for
+            vertical centering. NOT a geometric height: this is <c>top + bottom</c> of the
+            cap glyph 'H' from the draw origin (i.e. <c>minY + maxY</c> from FontStashSharp's
+            <c>TextBounds</c>), chosen so the cap-glyph midpoint lands at <c>controlHeight / 2</c>
+            independent of descenders. The geometric glyph height would be <c>maxY - minY</c>.
+            </summary>
+        </member>
         <member name="M:Rampastring.XNAUI.FontManagement.TTFFontWrapper.HasCharacter(System.Char)">
             <summary>
             For TTF fonts, this always returns true because FontStashSharp can dynamically
@@ -307,8 +390,15 @@
         </member>
         <member name="M:Rampastring.XNAUI.FontManagement.TTFFontWrapper.GetSafeString(System.String)">
             <summary>
-            Returns the string as-is for TTF fonts.
-            TTF fonts handle all characters through dynamic glyph generation and fallback.
+            Returns a sanitized string safe for rendering. It replaces unpaired surrogates
+            with U+FFFD so FontStashSharp's UTF-16 -> UTF-32 conversion does not throw.
+            </summary>
+        </member>
+        <member name="M:Rampastring.XNAUI.FontManagement.TTFFontWrapper.SanitizeStringForRendering(System.String)">
+            <summary>
+            Replaces unpaired UTF-16 surrogates with U+FFFD. Returns the original
+            string reference unchanged when the input is already valid (the common case),
+            to avoid allocations on the rendering hot path.
             </summary>
         </member>
         <member name="T:Rampastring.XNAUI.ConstructorNotFoundException">
@@ -515,6 +605,13 @@
             Allows the user to close the game form by Alt-F4.
             </summary>
         </member>
+        <member name="M:Rampastring.XNAUI.Renderer.ReloadFontsForScale(System.Single)">
+            <summary>
+            Reloads fonts with a new resolution factor matching the given scale ratio,
+            so TTF glyphs are rasterized at native display quality rather than being
+            scaled up from the render resolution.
+            </summary>
+        </member>
         <member name="M:Rampastring.XNAUI.Renderer.GetFontList">
             <summary>
             Allows direct access to the list of loaded fonts.
@@ -522,8 +619,7 @@
         </member>
         <member name="M:Rampastring.XNAUI.Renderer.GetSafeString(System.String,System.Int32)">
             <summary>
-            Returns a version of the given string where all characters that don't
-            appear in the given font have been replaced with question marks.
+            Returns a version of the given string that the font renderer can safely display without crashing.
             </summary>
             <param name="str">The string.</param>
             <param name="fontIndex">The index of the font.</param>
@@ -2112,6 +2208,41 @@
             If set, the drop-down is opened upwards rather than downwards.
             </summary>
         </member>
+        <member name="P:Rampastring.XNAUI.XNAControls.XNADropDown.ShowEllipsisOnOverflow">
+            <summary>
+            When the selected item's text is too wide for the closed control, it is always
+            cut off at the last fully fitting character so it does not visually overrun the
+            control's bounds. If this property is enabled, an ellipsis ("...") is appended
+            to indicate that the text has been truncated.
+            </summary>
+        </member>
+        <member name="F:Rampastring.XNAUI.XNAControls.XNADropDown.expandedListWidth">
+            <summary>
+            The width of the open dropdown list. Computed in <see cref="M:Rampastring.XNAUI.XNAControls.XNADropDown.OpenDropDown"/> as the
+            maximum of <see cref="P:Rampastring.XNAUI.XNAControls.XNAControl.Width"/> and the widest item's content width, so
+            wide items remain fully visible when the list is expanded.
+            </summary>
+        </member>
+        <member name="F:Rampastring.XNAUI.XNAControls.XNADropDown.closedWidth">
+            <summary>
+            Stores the control width used when the dropdown is closed so it can be restored
+            after the expanded list has temporarily widened the control. Null when no closed
+            width has been captured yet, so a legitimate <see cref="P:Rampastring.XNAUI.XNAControls.XNAControl.Width"/> of 0
+            is preserved instead of being treated as "not captured".
+            </summary>
+        </member>
+        <member name="M:Rampastring.XNAUI.XNAControls.XNADropDown.SyncWidthToDropDownState">
+            <summary>
+            Ensures the framework-visible control width matches the actual visible dropdown
+            width while the list is open, and restores the original width when the list closes.
+            </summary>
+        </member>
+        <member name="P:Rampastring.XNAUI.XNAControls.XNADropDown.CurrentDisplayWidth">
+            <summary>
+            Current visible width of the control, accounting for whether the dropdown list
+            is open and may be wider than the closed-state <see cref="P:Rampastring.XNAUI.XNAControls.XNAControl.Width"/>.
+            </summary>
+        </member>
         <member name="M:Rampastring.XNAUI.XNAControls.XNADropDown.AddItem(Rampastring.XNAUI.XNAControls.XNADropDownItem)">
             <summary>
             Adds an item into the drop-down.
@@ -2149,6 +2280,18 @@
         <member name="M:Rampastring.XNAUI.XNAControls.XNADropDown.GetItemIndexOnCursor">
             <summary>
             Returns the index of the item that the cursor currently points to.
+            </summary>
+        </member>
+        <member name="M:Rampastring.XNAUI.XNAControls.XNADropDown.InvalidateDisplayTextCache">
+            <summary>
+            Invalidates the cached display text.
+            </summary>
+        </member>
+        <member name="M:Rampastring.XNAUI.XNAControls.XNADropDown.GetDisplayTextForSelectedItem(Rampastring.XNAUI.XNAControls.XNADropDownItem,System.Int32)">
+            <summary>
+            Gets the display text for the selected item, fitted to the control's bounds so
+            it does not visually overrun the control. Appends an ellipsis to indicate
+            truncation when <see cref="P:Rampastring.XNAUI.XNAControls.XNADropDown.ShowEllipsisOnOverflow"/> is enabled.
             </summary>
         </member>
         <member name="M:Rampastring.XNAUI.XNAControls.XNADropDown.Draw(Microsoft.Xna.Framework.GameTime)">
