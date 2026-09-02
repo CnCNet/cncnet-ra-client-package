@@ -27,3 +27,4 @@ main.mix
 /package/Client
 /package/REDALERT.ini
 /tools/node_modules/
+/package/QM/**-qmlog.txt
