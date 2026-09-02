@@ -1,6 +1,6 @@
 [Basic]
 NewINIFormat=3
-Name=[4] Switch (Medium 4 players)
+Name=[4] Switch
 GameMode=Aftermath
 MaxPlayer=4
 MinPlayer=1

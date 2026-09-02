@@ -1,6 +1,6 @@
 [Basic]
 NewINIFormat=3
-Name=[4] On Your Marks (Medium 4 players)
+Name=[4] On Your Marks
 GameMode=Aftermath
 MaxPlayer=4
 MinPlayer=1

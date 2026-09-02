@@ -1,5 +1,5 @@
 [Basic]
-Name=[8] Lanes (Medium 8 players)
+Name=[8] Lanes
 GameMode=Aftermath
 MaxPlayer=8
 MinPlayer=1

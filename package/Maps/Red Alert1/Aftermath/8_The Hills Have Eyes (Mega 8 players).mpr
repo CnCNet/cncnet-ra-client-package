@@ -269,7 +269,7 @@ Armor=heavy
 Repairable=true
 
 [Basic]
-Name=[8] The Hills Have Eyes (Mega 8 players)
+Name=[8] The Hills Have Eyes
 GameMode=Aftermath
 MaxPlayer=8
 MinPlayer=1

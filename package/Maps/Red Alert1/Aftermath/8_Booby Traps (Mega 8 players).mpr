@@ -22,7 +22,7 @@ Invulnerability=3,INVULBOX,1.0
 TimeQuake=20,TQUAKE
 
 [Basic]
-Name=[8] Booby Traps (Mega 8 players)
+Name=[8] Booby Traps
 GameMode=Aftermath
 MaxPlayer=8
 MinPlayer=1

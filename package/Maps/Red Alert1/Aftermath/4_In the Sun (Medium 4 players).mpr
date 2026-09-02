@@ -1,6 +1,6 @@
 [Basic]
 NewINIFormat=3
-Name=[4] In the Sun (Medium 4 players)
+Name=[4] In the Sun
 GameMode=Aftermath
 MaxPlayer=4
 MinPlayer=1

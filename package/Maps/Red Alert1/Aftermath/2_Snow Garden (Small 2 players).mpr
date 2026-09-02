@@ -1,6 +1,6 @@
 [Basic]
 NewINIFormat=3
-Name=[2] Snow Garden (Small 2 players)
+Name=[2] Snow Garden
 GameMode=Aftermath
 MaxPlayer=2
 MinPlayer=1

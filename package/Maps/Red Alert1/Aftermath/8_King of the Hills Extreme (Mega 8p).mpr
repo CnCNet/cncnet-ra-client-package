@@ -22,7 +22,7 @@ Crewed=yes
 SelfHealing=yes
 
 [Basic]
-Name=[8] King of the Hills Extreme (Mega 8p)
+Name=[8] King of the Hills Extreme
 GameMode=Aftermath
 MaxPlayer=8
 MinPlayer=1

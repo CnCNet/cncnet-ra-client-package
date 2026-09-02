@@ -1,6 +1,6 @@
 [Basic]
 NewINIFormat=3
-Name=[4] Cold Pass (Medium 4 players)
+Name=[4] Cold Pass
 GameMode=Aftermath
 MaxPlayer=4
 MinPlayer=1

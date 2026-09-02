@@ -23,7 +23,7 @@ CrateRadius=6.0
 CrateRegen=2
 
 [Basic]
-Name=[8] Holy Grounds (Mega 8p)
+Name=[8] Holy Grounds
 GameMode=Aftermath
 MaxPlayer=8
 MinPlayer=1

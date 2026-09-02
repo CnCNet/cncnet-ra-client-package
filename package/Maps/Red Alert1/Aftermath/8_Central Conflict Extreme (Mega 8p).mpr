@@ -9,7 +9,7 @@ VortexRange=20
 VortexSpeed=20
 
 [Basic]
-Name=[8] Central Conflict Extreme (Mega 8p)
+Name=[8] Central Conflict Extreme
 GameMode=Aftermath
 MaxPlayer=8
 MinPlayer=1
