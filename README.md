@@ -1,7 +1,4 @@
 # CnCNet Red Alert Client Package
-# This read me is a WIP
-
-
 
 The official CnCNet Red Alert package for online.
 
@@ -9,6 +6,11 @@ This package is an add-on to the [XNA CnCNet Client](https://github.com/CnCNet/x
 
 ### Contributors
 
+* [CCHyper](https://github.com/CCHyper)
+* [Bittah Commander](https://github.com/Bittah)
+* [CnCRAZER](https://github.com/CnCRAZER)
+* [CO2](https://github.com/CO2-code)
+* [MahBoiDeveloper](https://github.com/MahBoiDeveloper)
 
 ### Development
 
