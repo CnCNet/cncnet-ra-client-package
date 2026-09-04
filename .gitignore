@@ -1,7 +1,7 @@
 *-spawn.exe
 DtaverWriter.exe
-ddraw.dll
-ddraw.ini
+/package/ddraw.dll
+/package/ddraw.ini
 Client/*
 Debug/*
 Maps/Custom/*.zip
@@ -13,15 +13,18 @@ CnCNet5_RA_Installer.exe
 *.idea/
 VersionWriter-CopiedFiles/
 MainMenuTheme.bak
-
-VersionWriter.exe
+ddraw.ddl
+ddraw.ini
 version
+main.mix
 
-/REDALERT.ini
-
-spawn.ini
-spawnmap.ini
-stats.dmp
+/package/spawn.ini
+/package/spawnmap.ini
+/package/stats.dmp
 /InnoSetup/output
 /gitversion.json
 /logs
+/package/Client
+/package/REDALERT.ini
+/tools/node_modules/
+/package/QM/**-qmlog.txt
