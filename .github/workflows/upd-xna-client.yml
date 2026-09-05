@@ -1,4 +1,4 @@
-# To be able use this workflow you must ensure that your repository have enable write and right access for GitHub Actions.
+# To be able use this workflow you must ensure that your repository have enabled write and right access for GitHub Actions.
 #
 # GUI Reference to enable access:
 # Repository --> Actions --> General --> Workflow permissions --> Read and write permissions
@@ -14,7 +14,7 @@ on:
 env:
   CLIENT_PATH: package # Do not add trailing slash
   UPDATE_BRANCH_NAME: update-client-binaries # The workflow adds the release tag after this value, i.e. "update-client-binaries-2.12.13"
-  TARGET_BRANCH: feature/port-to-xna # Into this branch workflow should create pull request for merge
+  TARGET_BRANCH: master # Into this branch workflow should create pull request for merge
   COMMIT_MESSAGE: Update client binaries to the latest version
   PR_TITLE: Update client binaries to the version # The workflow adds the release tag after this value, i.e. "Update client binaries to the version 2.12.13"
   PR_BODY: This is an automatic pull request to update client binaries to the latest release published in [CnCNet/xna-cncnet-client](https://github.com/CnCNet/xna-cncnet-client) repository.
@@ -35,6 +35,7 @@ jobs:
       with:
         repository: CnCNet/xna-cncnet-client
         latest: true
+        preRelease: true
         fileName: xna-cncnet-client*
 
     - name: Create Update Branch
