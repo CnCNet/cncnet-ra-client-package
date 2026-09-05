@@ -11,6 +11,7 @@ This package is an add-on to the [XNA CnCNet Client](https://github.com/CnCNet/x
 * [CnCRAZER](https://github.com/CnCRAZER)
 * [CO2](https://github.com/CO2-code)
 * [MahBoiDeveloper](https://github.com/MahBoiDeveloper)
+* [N8Diaz](https://github.com/N8Diaz)
 
 ### Development
 
