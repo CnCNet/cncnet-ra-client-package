@@ -1,7 +1,5 @@
 *-spawn.exe
 DtaverWriter.exe
-/package/ddraw.dll
-/package/ddraw.ini
 Client/*
 Debug/*
 Maps/Custom/*.zip
@@ -13,8 +11,6 @@ CnCNet5_RA_Installer.exe
 *.idea/
 VersionWriter-CopiedFiles/
 MainMenuTheme.bak
-ddraw.ddl
-ddraw.ini
 version
 main.mix
 
