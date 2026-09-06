@@ -1,5 +1,7 @@
 *-spawn.exe
 DtaverWriter.exe
+/package/ddraw.dll
+/package/ddraw.ini
 Client/*
 Debug/*
 Maps/Custom/*.zip
