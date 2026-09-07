@@ -4,18 +4,17 @@ on:
   # Run on push to any branches listed
   # Any new features that should be auto built and deployed should be in a branch under "feature/"
   # example: feature/port-to-xna
-  # NOTE: Currently limited to dev/feature builds only
   push:
     branches:
-      # - master  # Disabled for dev builds only
-      # - pre-release  # Disabled for dev builds only
+      - master
+      - pre-release
+      - legacy
       - feature/*
-      # - hotfix/*  # Disabled for dev builds only
+      - hotfix/*
 
   # Run when there is a release published
-  # NOTE: Disabled for dev builds only
-  # release:
-  #   types: [published]
+  release:
+    types: [published]
 
   # Allows for this workflow to be run manually
   workflow_dispatch:
