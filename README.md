@@ -1,7 +1,7 @@
 # CnCNet Red Alert Client Package
 
 
-![Command & Conquer: Red Alert](RA1.png)
+![Command & Conquer: Red Alert](package/Resources/RA1.png)
 
 
 <!-- <p align="center">
