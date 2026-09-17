@@ -1,9 +1,11 @@
 [Basic]
 NewINIFormat=3
-Name=[2] 1v1 ORE _ BY R1oooo
+Name=[2] One Way Out
 GameMode=Popular
 MaxPlayer=2
 MinPlayer=1
+Author=R1oooo
+
 [Map]
 Theater=TEMPERATE
 X=1
