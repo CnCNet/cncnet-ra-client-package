@@ -3,6 +3,10 @@ package/Saved Games/*
 package/Debug/*
 
 package/*.mix
+!package/raed.mix
+!package/raed1.mix
+!package/raed2.mix
+
 package/ddraw.dll
 package/ddraw.ini
 package/spawn.ini
@@ -10,6 +14,8 @@ package/spawnmap.ini
 package/stats.dmp
 package/REDALERT.ini
 package/version_u
+package/*.mpr
+package/C&C-RAED.ini
 
 package/QM/**-qmlog.txt
 

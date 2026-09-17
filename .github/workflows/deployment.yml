@@ -19,6 +19,11 @@ on:
   # Allows for this workflow to be run manually
   workflow_dispatch:
 
+# Never run two deploys of the same branch at once; they would fight over the same version directory.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   # This job is responsible for building the package that will be deployed to the server.
   # It is run in a windows container so that Version.exe and other Windows based tools are able to be executed.
@@ -188,7 +193,7 @@ jobs:
         with:
           name: package
 
-      # Deploy the package to the server
+      # Upload the package archive to a staging directory. It is never served from there.
       - name: Deploy package
         uses: appleboy/scp-action@master
         with:
@@ -199,9 +204,11 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           overwrite: true
           source: "package.tar.gz"
-          target: "${{ secrets.SSH_PATH_UPDATES }}/${{ needs.build-package.outputs.packageUploadVersion }}/"
+          target: "${{ secrets.SSH_PATH_UPDATES }}/.staging/${{ needs.build-package.outputs.packageUploadVersion }}/"
 
-      # Extract the deployed package on the server
+      # Extract into a fresh directory and swap it into place once it is complete.
+      # Extracting over the live directory meant a failed or timed-out extraction left a
+      # half-updated package being served, with a version file that did not match its files.
       - name: Extract the deployed package
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -210,11 +217,19 @@ jobs:
           passphrase: ${{ secrets.SSH_PASS }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          command_timeout: 30m
+          script_stop: true
           script: |
-            cd ${{ secrets.SSH_PATH_UPDATES }}/${{ needs.build-package.outputs.packageUploadVersion }}
-            tar -xzvf ${{ secrets.SSH_PATH_UPDATES }}/${{ needs.build-package.outputs.packageUploadVersion }}/package.tar.gz
-            rm ${{ secrets.SSH_PATH_UPDATES }}/${{ needs.build-package.outputs.packageUploadVersion }}/package.tar.gz
-            chmod 777 --recursive ${{ secrets.SSH_PATH_UPDATES }}/${{ needs.build-package.outputs.packageUploadVersion }}/*
+            VERSION_DIR="${{ secrets.SSH_PATH_UPDATES }}/${{ needs.build-package.outputs.packageUploadVersion }}"
+            STAGING_DIR="${{ secrets.SSH_PATH_UPDATES }}/.staging/${{ needs.build-package.outputs.packageUploadVersion }}"
+            gzip -t "$STAGING_DIR/package.tar.gz"
+            rm -rf "$STAGING_DIR/extract" "$VERSION_DIR.old"
+            mkdir -p "$STAGING_DIR/extract"
+            tar -xzf "$STAGING_DIR/package.tar.gz" -C "$STAGING_DIR/extract"
+            chmod 777 --recursive "$STAGING_DIR/extract"
+            if [ -d "$VERSION_DIR" ]; then mv "$VERSION_DIR" "$VERSION_DIR.old"; fi
+            mv "$STAGING_DIR/extract" "$VERSION_DIR"
+            rm -rf "$VERSION_DIR.old" "$STAGING_DIR"
 
       # Create/update a mirror link for client update purposes, using the GitVersion pre release label as the link name.
       # See the file "GitVersion.yml" for more details on the name that will be used for a given branch.
