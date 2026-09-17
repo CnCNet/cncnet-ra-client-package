@@ -31,7 +31,7 @@ version       text eol=crlf
 *.bmp binary
 *.psd binary
 
-# Game files
+# Game binary assets keep original byte content
 *.mix binary
 *.aud binary
 *.bar binary
