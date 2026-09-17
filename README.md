@@ -45,7 +45,7 @@ You should have received a copy of the GNU General Public License along with thi
 
 ## Legal
 
-EA has not endorsed and does not support this product. Command & Conquer, Command & Conquer: Generals, Command & Conquer: Red Alert 2, Command & Conquer: Red Alert 2 — Yuri's Revenge are registered trademarks of Electronic Arts Inc. All Rights Reserved.
+EA has not endorsed and does not support this product. Command & Conquer, Command & Conquer: Red Alert, Command & Conquer: Red Alert: Counterstrike, Command & Conquer: Red Alert: The Aftermath, Command & Conquer: Red Alert: Retaliation are registered trademarks of Electronic Arts Inc. All Rights Reserved.
 
 ## Sponsored by
 
