@@ -1,15 +1,8 @@
 # CnCNet Red Alert Client Package
 
+![logo](package/Resources/logo.png)
 
-![Command & Conquer: Red Alert](package/Resources/RA1.png)
-
-
-<!-- <p align="center">
-  <img src="package/Resources/ThemeDefault/ralogo.png" alt="Command &amp; Conquer: Red Alert" />
-</p> -->
-
-The official CnCNet [Command & Conquer: Red Alert](https://cncnet.org/red-alert) package for online play.
-
+The official CnCNet [Red Alert](https://cncnet.org/red-alert) package for online play.
 This package is an add-on to the [XNA CnCNet Client](https://github.com/CnCNet/xna-cncnet-client) by [Rampastring](https://github.com/Rampastring)
 
 ## Contributors
@@ -20,6 +13,7 @@ This package is an add-on to the [XNA CnCNet Client](https://github.com/CnCNet/x
 - [CO2](https://github.com/CO2-code)
 - [MahBoiDeveloper](https://github.com/MahBoiDeveloper)
 - [N8Diaz](https://github.com/N8Diaz)
+- [RaVaGe](https://github.com/CnC-RaVaGe)
 
 ## Used projects
 
@@ -27,22 +21,19 @@ This package is an add-on to the [XNA CnCNet Client](https://github.com/CnCNet/x
 - [XNA CnCNet Client Launcher](https://github.com/CnCNet/xna-cncnet-client-launcher) (GNU GPLv3)
 - [ra-patches](https://github.com/CnCNet/ra-patches) (GNU GPLv3)
 - [Mobius Map Editor](https://github.com/Nyerguds/MobiusMapEditor) (GNU GPLv3 with additional terms)
-- [InnoDependencyInstaller](https://github.com/DomGries/InnoDependencyInstaller) (Code Project Open License 1.02)
-
-Additional third-party notices are included with the package and in the [installer license notice](tools/build-installer/inno/Resources/License-RedAlert.txt).
 
 ## Development
 
 > [!IMPORTANT]
-> This is not the source repository for the XNA CnCNet Client. Submit changes to the client's code upstream. If you only want to play Red Alert, use the [official CnCNet download](https://cncnet.org/red-alert) instead of cloning this repository.
+> This is not the source repository for the XNA CnCNet Client. Submit changes to the client's source code [upstream](https://github.com/CnCNet/xna-cncnet-client). This is simply a configuration for it.
 
 Development in this repository covers the Red Alert package: maps, game assets, client configuration, update metadata, and packaging tools. Changes to the shared client or launcher belong in their upstream repositories linked above.
 
 ## Repository structure
 
-- `package` — the distributable Red Alert client layout copied into archives and the installer.
-- `game-assets` — source game assets. Directories ending in `.pack` are converted into `.mix` archives at build time.
-- `tools` — Node.js, TypeScript, PowerShell, and Windows utilities for preparing, validating, building, and publishing the package.
+- `package` - the exact file structure that should make up the client package that is delivered to users.
+- `game-assets` - source game assets from freeware version. Directories ending in `.pack` are converted into `.mix` archives at build time.
+- `tools` - tools that are used to help build the package.
 
 ## License
 
@@ -52,7 +43,9 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 You should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses/.
 
-Command & Conquer and Command & Conquer: Red Alert are trademarks of Electronic Arts. CnCNet is a fan project and is not affiliated with Electronic Arts.
+## Legal
+
+EA has not endorsed and does not support this product. Command & Conquer, Command & Conquer: Red Alert, Command & Conquer: Red Alert: Counterstrike, Command & Conquer: Red Alert: The Aftermath, Command & Conquer: Red Alert: Retaliation are registered trademarks of Electronic Arts Inc. All Rights Reserved.
 
 ## Sponsored by
 

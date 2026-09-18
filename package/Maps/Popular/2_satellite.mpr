@@ -1,9 +1,10 @@
 [Basic]
 NewINIFormat=3
-Name=[2] 1v1 pro ore ByR1ooo
+Name=[2] Satellite 
 GameMode=Popular
 MaxPlayer=2
 MinPlayer=1
+Author=R1ooo
 
 [Map]
 Theater=TEMPERATE
