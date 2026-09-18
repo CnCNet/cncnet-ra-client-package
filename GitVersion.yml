@@ -3,16 +3,20 @@ mode: ContinuousDeployment
 increment: Patch
 
 branches:
+  # An empty tag makes GitVersion fall back to the "ci" label in ContinuousDeployment mode,
+  # so master builds deploy to "updates/X.Y.Z-ci" and are served on the "ci" mirror link (the Develop channel).
   master:
     regex: ^master$
     source-branches: [ 'master' ]
     tag: ''
     increment: Patch
 
+  # The label is used verbatim as the mirror link name, so clients on the Pre-release channel
+  # read from "/updates/games/ra/pre-release/".
   pre-release:
     regex: ^pre-release$
     source-branches: [ 'master' ]
-    tag: prerelease
+    tag: pre-release
     increment: Patch
 
   # Any new features that should be auto versioned should be in a branch under "feature/"

@@ -20,8 +20,9 @@ on:
   workflow_dispatch:
 
 # Never run two deploys of the same branch at once; they would fight over the same version directory.
+# Stable releases share one group so that two releases published back to back cannot race over the "live" link.
 concurrency:
-  group: deploy-${{ github.ref }}
+  group: ${{ github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false && 'stable-release-deployment' || format('deploy-{0}', github.ref) }}
   cancel-in-progress: false
 
 jobs:
@@ -231,14 +232,44 @@ jobs:
             mv "$STAGING_DIR/extract" "$VERSION_DIR"
             rm -rf "$VERSION_DIR.old" "$STAGING_DIR"
 
+      # Point the stable ("live") update channel at the newly released version.
+      # Clients using UpdaterConfig_Live.ini read from "<games ra>/live".
+      #
+      # Guarded on prerelease == false because the "published" event also fires for GitHub
+      # pre-releases, which must never be pushed to the stable channel. A GitHub pre-release is
+      # still deployed to its "updates/X.Y.Z" directory above; it just is not linked anywhere.
+      #
+      # The link is created under a temporary name and renamed over "live" so that clients never
+      # observe a missing or half-written link.
+      - name: Update live mirror link
+        if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          passphrase: ${{ secrets.SSH_PASS }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          # Without this the script runs without "set -e": a failed cd would leave the
+          # ln to create a dangling "live" link in the home directory, and still pass.
+          script_stop: true
+          script: |
+            cd -- "${{ secrets.SSH_PATH_GAMES_RA }}" &&
+            ln -s "updates/${{ needs.build-package.outputs.packageUploadVersion }}" "live.tmp.${{ github.run_id }}.${{ github.run_attempt }}" &&
+            mv -Tf "live.tmp.${{ github.run_id }}.${{ github.run_attempt }}" live
+
       # Create/update a mirror link for client update purposes, using the GitVersion pre release label as the link name.
       # See the file "GitVersion.yml" for more details on the name that will be used for a given branch.
       # Ex: if the branch name is "feature/port-to-xna", it will create a link using the sanitized branch name to point to the directory "updates/X.Y.Z-port-to-xna".
       # Then, client users can use the path "/updates/games/ra/<branch>/" for their UpdaterConfig.ini file.
-      # This will keep develop and feature branch update mirror links up to date as soon as the deploy has occurred.
+      # This will keep the ci, pre-release and feature branch update mirror links up to date as soon as the deploy has occurred.
+      # The links backing the client's update channels are:
+      #   live        <- published, non-prerelease GitHub release (Resources/UpdaterConfig_Live.ini)
+      #   pre-release <- pre-release branch                       (Resources/UpdaterConfig_PreRelease.ini)
+      #   ci          <- master branch                            (Resources/UpdaterConfig_Dev.ini)
       - name: Update mirror link
         uses: appleboy/ssh-action@v0.1.7
-        # RUN ON NON-RELEASES ONLY. RELEASE VERSION LINKS SHOULD CONTINUE TO BE UPDATED MANUALLY, FOR NOW.
+        # Branch builds only. Releases have no pre-release label and are linked by the step above.
         if: github.event_name != 'release' && needs.build-package.outputs.mirrorLinkName != ''
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -246,6 +277,6 @@ jobs:
           passphrase: ${{ secrets.SSH_PASS }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          script_stop: true
           script: |
-            cd ${{ secrets.SSH_PATH_GAMES_RA }}
-            ln -sfn updates/${{ needs.build-package.outputs.packageUploadVersion }} ${{ needs.build-package.outputs.mirrorLinkName }}
+            cd -- "${{ secrets.SSH_PATH_GAMES_RA }}" && ln -sfn "updates/${{ needs.build-package.outputs.packageUploadVersion }}" "${{ needs.build-package.outputs.mirrorLinkName }}"
