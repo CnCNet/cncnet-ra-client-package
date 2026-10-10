@@ -2,6 +2,7 @@
 *.sh  text eol=lf
 *.ps1 text eol=lf
 *.ts text eol=lf
+
 # Batch scripts require CRLF
 *.cmd text eol=crlf
 *.bat text eol=crlf
@@ -13,6 +14,7 @@
 preupdateexec text eol=crlf
 updateexec    text eol=crlf
 version       text eol=crlf
+
 # Ensure binary assets keep original byte content
 *.exe binary
 *.dll binary
@@ -28,3 +30,41 @@ version       text eol=crlf
 *.jpeg binary
 *.bmp binary
 *.psd binary
+
+# Game binary assets keep original byte content
+*.mix binary
+*.aud binary
+*.bar binary
+*.bmp binary
+*.cav binary
+*.cps binary
+*.des binary
+*.eng binary
+*.fnt binary
+*.fre binary
+*.ger binary
+*.icn binary
+*.ini binary
+*.int binary
+*.jun binary
+*.lut binary
+*.mpr binary
+*.pal binary
+*.pcx binary
+*.pkt binary
+*.r00 binary
+*.r01 binary
+*.r02 binary
+*.r03 binary
+*.shp binary
+*.sno binary
+*.tem binary
+*.txt binary
+*.v00 binary
+*.v01 binary
+*.v02 binary
+*.v03 binary
+*.vqa binary
+*.vqp binary
+*.win binary
+*.wsa binary
