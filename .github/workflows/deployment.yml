@@ -288,6 +288,31 @@ jobs:
           source: "CnCNet5_RA_Installer.exe"
           target: "${{ secrets.PUBLICDOWNLOADFOLDER }}"
 
+      # Linux users (Wine, Bottles, Lutris, ...) download the package as an archive instead of
+      # running the installer. package.tar.gz is built on Windows, which drops the executable bit,
+      # so repack it here with the launcher scripts made executable.
+      - name: Build Linux archive
+        if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
+        run: |
+          mkdir linux-package
+          tar -xzf package.tar.gz -C linux-package
+          find linux-package -name '*.sh' -exec chmod +x {} +
+          tar -C linux-package --owner=0 --group=0 -czf CnCNet5_RA_Installer.tar.gz .
+
+      # Same rules as the installer upload above; offered as the Linux download on cncnet.org.
+      - name: Upload Linux archive
+        if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          passphrase: ${{ secrets.SSH_PASS }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          overwrite: true
+          source: "CnCNet5_RA_Installer.tar.gz"
+          target: "${{ secrets.PUBLICDOWNLOADFOLDER }}"
+
       # Create/update a mirror link for client update purposes, using the GitVersion pre release label as the link name.
       # See the file "GitVersion.yml" for more details on the name that will be used for a given branch.
       # Ex: if the branch name is "feature/port-to-xna", it will create a link using the sanitized branch name to point to the directory "updates/X.Y.Z-port-to-xna".
