@@ -9,7 +9,10 @@ export class ReleaseAssetUploaderService extends AbstractRepoService<ReleaseAsse
 
     public static run(context?: typeof defaultContext | any): void {
         new ReleaseAssetUploaderService().run(context || defaultContext)
-            .catch(console.error);
+            .catch(error => {
+                console.error(error);
+                process.exitCode = 1;
+            });
     }
 
     protected getOptionValues(): ReleaseAssetUploaderOptionValues {
@@ -33,9 +36,8 @@ export class ReleaseAssetUploaderService extends AbstractRepoService<ReleaseAsse
         });
 
         if (!releaseResponse || releaseResponse.status != 200) {
-            console.error(`Unable to get ID for owner: ${context.repo.owner}, repo: ${context.repo.repo}, tag: ${tagName}`);
             console.error(releaseResponse);
-            return;
+            throw `Unable to get ID for owner: ${context.repo.owner}, repo: ${context.repo.repo}, tag: ${tagName}`;
         }
 
         const fullAssetPath = resolve(process.cwd(), assetPath);
@@ -56,12 +58,11 @@ export class ReleaseAssetUploaderService extends AbstractRepoService<ReleaseAsse
         });
 
         if (uploadResponse.status != 201) {
-            console.error(`Failed to upload asset to release`);
             console.error(uploadResponse);
-            return;
-        } else {
-            console.log('Asset upload complete');
+            throw `Failed to upload asset to release`;
         }
+
+        console.log('Asset upload complete');
 
     }
 }
