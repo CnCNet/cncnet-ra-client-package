@@ -4,6 +4,7 @@ Name=[2] 1v1 dont scared byR1ooo
 GameMode=Popular
 MaxPlayer=2
 MinPlayer=1
+
 [General]
 BailCount=10
 GoldValue=150
@@ -19,7 +20,7 @@ Height=35
 
 [Waypoints]
 0=2440
-1=2439
+1=2552
 2=2312
 3=2311
 4=2551

@@ -26,6 +26,7 @@ Player=USSR
 GameMode=Popular
 MaxPlayer=2
 MinPlayer=1
+
 [Base]
 Count=0
 Player=USSR
@@ -41,7 +42,7 @@ Height=94
 98=5902
 99=5902
 0=8606
-1=8606
+1=8673
 3=8606
 2=8606
 4=8673
