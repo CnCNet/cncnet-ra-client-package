@@ -27,6 +27,8 @@ edwin.ini
 raed.mix
 raed1.mix
 raed2.mix
+LauncherUnixMono.sh
+LauncherUnixWine.sh
 
 [DeleteFolder]
 do_not_remove_this_line
