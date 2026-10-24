@@ -26,6 +26,7 @@ Player=USSR
 GameMode=Popular
 MaxPlayer=2
 MinPlayer=1
+
 [General]
 OreSpreads=no
 
@@ -37,15 +38,15 @@ Width=126
 Height=44
 
 [Waypoints]
-98=4029
-1=5386
-2=5386
 0=5386
+1=5493
+2=5386
 3=5386
 5=5493
 7=5493
 4=5493
 6=5493
+98=4029
 99=7740
 
 [MapPack]
