@@ -27,6 +27,7 @@ Percent=0
 GameMode=Popular
 MaxPlayer=2
 MinPlayer=1
+
 [General]
 OreSpreads=no
 
@@ -38,14 +39,14 @@ Width=126
 Height=126
 
 [Waypoints]
-4=781
 0=781
+1=15092
 5=1138
-1=1138
 98=8379
 2=15092
 6=15092
 3=15241
+4=781
 7=15241
 
 [MapPack]

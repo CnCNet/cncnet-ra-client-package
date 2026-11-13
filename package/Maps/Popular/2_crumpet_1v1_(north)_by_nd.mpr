@@ -5,6 +5,7 @@ NewINIFormat=3
 GameMode=Popular
 MaxPlayer=2
 MinPlayer=1
+
 [Map]
 Theater=TEMPERATE
 X=1
@@ -13,14 +14,14 @@ Width=120
 Height=78
 
 [Waypoints]
+0=5525
+1=5476
 7=5476
 6=5476
 5=5476
 4=5476
 3=5525
 2=5525
-0=5525
-1=5525
 
 [MapPack]
 1=bwAAIIH//gEB/4JhAP9YAAIB/6YAxgD/RhICAdHyE/1cE/9qAPIT/1IAHBP/VABYFP9WAA

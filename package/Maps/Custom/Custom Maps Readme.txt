@@ -1,5 +1,5 @@
 Any custom maps you made or downloaded are to be placed in this directory. 
-Custom maps need to have .map file extension.
+Custom maps need to have .mpr file extension.
 
 The game mode of custom maps is defined in [Basic] -> GameMode. Only existing gamemodes are accepted values.
 
@@ -20,4 +20,4 @@ ForceNoTeams                - No preset teams allowed on the map. Does not work 
 
 Sections ForcedOptions and ForcedSpawnIniOptions are also parsed from map files. Look at MPMaps.ini under INI directory for a reference how to set them up.
 
-To get a custom map preview, use Map Renderer included in Map Editor\Map Renderer to render a preview. Enable thumbnail output (make sure aspect ratio matches the size of the map preview box (837,380)) and rename thumb_*.png to match map filename (e.g customap.map & custommap.png).
+To get a custom map preview, use Map Renderer included in Map Editor\Map Renderer to render a preview. Compress the *.png (using tools like Tinypng.com) then rename thumb_*.png to match map filename (e.g custommap.mpr & custommap.png).
