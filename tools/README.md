@@ -23,6 +23,10 @@ Most utilities are run from the `tools` root via `npm run <script>`.
 | `npm run publish-release`        | `publish-release`        | Publishes the latest version to the server and sends an IRC release notification. |
 
 ## Auxiliary Scripts
+
+The [RA1 replay overlay builder](replay/README.md) rebuilds the replay-enabled
+Westwood game from a local ra-patches checkout without changing the
+client binaries or overwriting the package in place.
 | Path                                              | Purpose |
 | ------------------------------------------------- | ------- |
 | `base-config.ps1`                                 | Shared PowerShell configuration with paths to the repository, `package/`, `Resources/`, and logs. |

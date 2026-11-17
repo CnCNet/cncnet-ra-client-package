@@ -14,6 +14,7 @@ This package is an add-on to the [XNA CnCNet Client](https://github.com/CnCNet/x
 - [MahBoiDeveloper](https://github.com/MahBoiDeveloper)
 - [N8Diaz](https://github.com/N8Diaz)
 - [RaVaGe](https://github.com/CnC-RaVaGe)
+- [11EJDE11](https://github.com/11EJDE11)
 
 ## Used projects
 
