@@ -29,6 +29,7 @@ raed1.mix
 raed2.mix
 LauncherUnixMono.sh
 LauncherUnixWine.sh
+redalert.ini
 
 [DeleteFolder]
 package\Tools\Mobius Map Editor\Classic\RA\
